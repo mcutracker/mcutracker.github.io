@@ -1,0 +1,67 @@
+name: Finalize MCU Tracker migration
+
+on:
+  push:
+    paths:
+      - '.github/workflows/finalize-migration.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    if: github.event.head_commit.message == 'Trigger migration finalization'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Refresh app checksum and verify migrated URLs
+        shell: python
+        run: |
+          import hashlib, json
+          from pathlib import Path
+
+          app = Path('app/index.html')
+          digest = hashlib.sha256(app.read_bytes()).hexdigest()
+
+          Path('app/index.sha256').write_text(f'{digest}  index.html\n', encoding='utf-8')
+
+          manifest_path = Path('app/latest.json')
+          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+          if manifest.get('version') != '1.6.17':
+              raise SystemExit(f"Unexpected current version: {manifest.get('version')}")
+          manifest['url'] = 'https://raw.githubusercontent.com/mcutracker/mcutracker.github.io/main/app/index.html'
+          manifest['sha256'] = digest
+          manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          stale = []
+          text_suffixes = {'.html', '.js', '.json', '.md', '.yml', '.yaml', '.toml', '.go', '.sql', '.txt', '.sha256', '.xml', '.css'}
+          for path in Path('.').rglob('*'):
+              if not path.is_file() or '.git' in path.parts or '.github' in path.parts:
+                  continue
+              if path.suffix.lower() not in text_suffixes and path.name != '.nojekyll':
+                  continue
+              try:
+                  text = path.read_text(encoding='utf-8')
+              except UnicodeDecodeError:
+                  continue
+              if 'ovztur.github.io' in text:
+                  stale.append(str(path))
+          if stale:
+              raise SystemExit('Old site URL still present in: ' + ', '.join(stale))
+
+          print('SHA256:', digest)
+
+      - name: Remove one-shot finalizer
+        run: rm -f .github/workflows/finalize-migration.yml
+
+      - name: Commit finalization
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Finalize MCU Tracker migration checksums'
+          git push origin main
