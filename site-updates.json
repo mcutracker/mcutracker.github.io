@@ -3,11 +3,20 @@
   "entries": [
     {
       "date": "2026-08-13",
+      "title": "Windows EXE İndirme",
+      "items": [
+        "Ana sitedeki Windows butonu gerçek MCU_Tracker_Ultimate_Setup.exe hedefini kullanacak şekilde güncellendi.",
+        "Eski .url başlatıcı bağlantısı ana indirme akışından çıkarıldı.",
+        "Kurulum EXE’si ilk çalıştırmada MCU Tracker’ı Masaüstü’ne yerleştirecek şekilde hazırlanmıştır."
+      ]
+    },
+    {
+      "date": "2026-08-13",
       "title": "Windows Doğrudan İndirme",
       "items": [
         "Ana siteye doğrudan Windows’a İndir butonu eklendi.",
         "Edge/Chrome üzerinden PWA kurulum adımları ana akıştan kaldırıldı.",
-        "İndirilen Windows başlatıcısı ortak web uygulamasını açar; aynı kullanıcı adı ve şifre web ile Windows arasında kullanılabilir."
+        "Windows ve web aynı ortak hesap sistemini kullanır."
       ]
     },
     {
