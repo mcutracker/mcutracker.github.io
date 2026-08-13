@@ -11,7 +11,7 @@
   const writeUsers=u=>localStorage.setItem(USERS_KEY,JSON.stringify(u));
   const sessionKey=()=>localStorage.getItem(SESSION_KEY)||'';
   const account=()=>{const users=readUsers(),key=sessionKey();return{users,key,user:users[key]||null}};
-  const primary=u=>keyOf(u?.username||u?.key)==='ovztur';
+  const primary=u=>keyOf(u?.username||u?.key)==='ovztur'||u?.isPrimaryAdmin===true;
 
   async function sha256(text){
     const raw=String(text||'');
@@ -67,7 +67,7 @@
   function deleteStoredAccount(storedKey){
     const users=readUsers(),target=users[storedKey];
     if(!target)return{ok:false,msg:'Hesap bulunamadı.'};
-    if(primary(target))return{ok:false,msg:'ovztur Ana Admin hesabı silinemez.'};
+    if(primary(target))return{ok:false,msg:'Ana Admin hesabı silinemez.'};
     if(storedKey!==sessionKey())return{ok:false,msg:'Yalnızca kendi hesabını silebilirsin.'};
     clearUserState(storedKey,target);delete users[storedKey];writeUsers(users);localStorage.removeItem(SESSION_KEY);
     setTimeout(()=>location.reload(),80);return{ok:true,msg:`@${target.username||storedKey} hesabı silindi.`};
@@ -79,13 +79,48 @@
   }
 
   function ensureSelfDelete(){
-    const {key,user}=account(),existing=document.getElementById('mcuSelfDeleteBtn');
-    if(!user||primary(user)){existing?.remove();return}
-    if(existing)return;
-    const side=document.getElementById('sideMenu');if(!side)return;
-    const btn=document.createElement('button');btn.id='mcuSelfDeleteBtn';btn.className='menu-category';btn.type='button';btn.textContent='🗑️ Hesabımı Sil';btn.style.cssText='border-color:rgba(255,90,90,.35);color:#ffb3b3';
-    btn.onclick=e=>{e.preventDefault();e.stopPropagation();const now=account();if(!now.user||primary(now.user))return;const label='@'+(now.user.username||now.key);if(!confirmDelete(label))return;deleteStoredAccount(now.key)};
-    const logout=document.getElementById('logoutBtn');if(logout)side.insertBefore(btn,logout);else side.appendChild(btn);
+    const {key,user}=account();
+    const oldBtn=document.getElementById('mcuSelfDeleteBtn');
+    const oldCard=document.getElementById('mcuSelfDeleteCard');
+
+    if(!user){oldBtn?.remove();oldCard?.remove();return}
+
+    const grid=document.querySelector('.settings-grid');
+    if(oldBtn&&!oldCard?.contains(oldBtn))oldBtn.remove();
+    if(!grid){oldCard?.remove();return}
+
+    if(primary(user)){
+      oldBtn?.remove();
+      if(oldCard?.dataset.mode==='protected')return;
+      oldCard?.remove();
+      const card=document.createElement('section');
+      card.id='mcuSelfDeleteCard';
+      card.dataset.mode='protected';
+      card.className='settings-card';
+      card.innerHTML='<h3>🛡️ Ana Admin Koruması</h3><p>Ana Admin hesabı sistem hesabıdır ve silinemez. Bu hesap için hesap silme düğmesi devre dışıdır.</p>';
+      grid.appendChild(card);
+      return;
+    }
+
+    if(oldCard?.dataset.mode==='delete'&&oldCard.querySelector('#mcuSelfDeleteBtn'))return;
+    oldCard?.remove();
+
+    const card=document.createElement('section');
+    card.id='mcuSelfDeleteCard';
+    card.dataset.mode='delete';
+    card.className='settings-card';
+    card.innerHTML='<h3>🗑️ Hesabı Sil</h3><p>Yalnızca şu an giriş yaptığın hesabı kalıcı olarak silebilirsin. Başka kullanıcıların hesaplarına dokunulmaz. Bu işlem geri alınamaz.</p><div class="settings-actions"><button id="mcuSelfDeleteBtn" class="secondary" type="button" style="border-color:rgba(255,90,90,.45);color:#ffb3b3">🗑️ Hesabımı Kalıcı Olarak Sil</button></div>';
+    grid.appendChild(card);
+
+    const btn=card.querySelector('#mcuSelfDeleteBtn');
+    if(btn)btn.onclick=e=>{
+      e.preventDefault();e.stopPropagation();
+      const now=account();
+      if(!now.user||primary(now.user))return;
+      const label='@'+(now.user.username||now.key);
+      if(!confirmDelete(label))return;
+      deleteStoredAccount(now.key);
+    };
   }
 
   function removeBulkWatchActions(){
