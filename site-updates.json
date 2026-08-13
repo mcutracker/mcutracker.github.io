@@ -3,6 +3,15 @@
   "entries": [
     {
       "date": "2026-08-13",
+      "title": "Windows Doğrudan İndirme",
+      "items": [
+        "Ana siteye doğrudan Windows’a İndir butonu eklendi.",
+        "Edge/Chrome üzerinden PWA kurulum adımları ana akıştan kaldırıldı.",
+        "İndirilen Windows başlatıcısı ortak web uygulamasını açar; aynı kullanıcı adı ve şifre web ile Windows arasında kullanılabilir."
+      ]
+    },
+    {
+      "date": "2026-08-13",
       "title": "Arayüz Bakımı",
       "items": [
         "İzleme ekranındaki Tümünü İşaretle ve Tümünü Kaldır toplu işlem butonları kaldırıldı.",
