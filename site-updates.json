@@ -3,6 +3,15 @@
   "entries": [
     {
       "date": "2026-08-13",
+      "title": "Hesap Ayarları",
+      "items": [
+        "Kullanıcıların kendi hesaplarını kapatabilmesi için hesap yönetimi Ayarlar bölümüne taşındı.",
+        "İşlem yalnızca oturum açmış kullanıcının kendi hesabında çalışır; diğer kullanıcı hesapları etkilenmez.",
+        "Ana Admin hesabı sistem tarafından korumalıdır ve kapatılamaz."
+      ]
+    },
+    {
+      "date": "2026-08-13",
       "title": "Windows İndirme Bağlantısı Düzeltildi",
       "items": [
         "Ana sitedeki Windows İçin İndir butonu MCU Tracker’ın itch.io indirme sayfasına bağlandı.",
