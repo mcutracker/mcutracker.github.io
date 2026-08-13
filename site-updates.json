@@ -3,18 +3,18 @@
   "entries": [
     {
       "date": "2026-08-13",
-      "title": "Windows EXE İndirme",
+      "title": "Windows İndirme Bağlantısı Düzeltildi",
       "items": [
-        "Ana sitedeki Windows butonu gerçek MCU_Tracker_Ultimate_Setup.exe hedefini kullanacak şekilde güncellendi.",
-        "Eski .url başlatıcı bağlantısı ana indirme akışından çıkarıldı.",
-        "Kurulum EXE’si ilk çalıştırmada MCU Tracker’ı Masaüstü’ne yerleştirecek şekilde hazırlanmıştır."
+        "Ana sitedeki Windows İçin İndir butonu MCU Tracker’ın itch.io indirme sayfasına bağlandı.",
+        "Eski yerel dosya yolu kaldırıldı ve tarayıcı önbelleğini yenilemek için site script sürümü güncellendi.",
+        "Windows kurulum dosyası itch.io üzerinden sunulacak şekilde indirme akışı düzenlendi."
       ]
     },
     {
       "date": "2026-08-13",
-      "title": "Windows Doğrudan İndirme",
+      "title": "Windows İndirme Hazırlığı",
       "items": [
-        "Ana siteye doğrudan Windows’a İndir butonu eklendi.",
+        "Ana siteye Windows indirme butonu eklendi.",
         "Edge/Chrome üzerinden PWA kurulum adımları ana akıştan kaldırıldı.",
         "Windows ve web aynı ortak hesap sistemini kullanır."
       ]
