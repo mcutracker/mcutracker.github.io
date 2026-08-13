@@ -88,6 +88,11 @@
     const logout=document.getElementById('logoutBtn');if(logout)side.insertBefore(btn,logout);else side.appendChild(btn);
   }
 
+  function removeBulkWatchActions(){
+    document.getElementById('allBtn')?.remove();
+    document.getElementById('noneBtn')?.remove();
+  }
+
   function ensureReleaseNotes(){
     const existing=document.getElementById('mcuReleaseNotesBtn');
     if(existing){existing.textContent='📋 Yama Notları';return}
@@ -109,10 +114,11 @@
   }
 
   function install(){
-    protectPrimaryRegistration();recoverPrimaryAdmin();ensureCloudAuth();ensureCloudAdmin();ensureSelfDelete();
+    protectPrimaryRegistration();recoverPrimaryAdmin();removeBulkWatchActions();ensureCloudAuth();ensureCloudAdmin();ensureSelfDelete();
+    setTimeout(removeBulkWatchActions,100);setTimeout(removeBulkWatchActions,700);
     setTimeout(ensureCloudAuth,250);setTimeout(ensureCloudAdmin,350);setTimeout(ensureSelfDelete,250);setTimeout(ensureSelfDelete,1000);setTimeout(ensureReleaseNotes,600);setTimeout(ensureReleaseNotes,1800);
-    document.addEventListener('click',()=>setTimeout(()=>{ensureSelfDelete();ensureReleaseNotes();ensureCloudAuth();ensureCloudAdmin()},0),true);
-    window.addEventListener('focus',()=>{ensureSelfDelete();ensureReleaseNotes();ensureCloudAuth();ensureCloudAdmin()},{passive:true});
+    document.addEventListener('click',()=>setTimeout(()=>{removeBulkWatchActions();ensureSelfDelete();ensureReleaseNotes();ensureCloudAuth();ensureCloudAdmin()},0),true);
+    window.addEventListener('focus',()=>{removeBulkWatchActions();ensureSelfDelete();ensureReleaseNotes();ensureCloudAuth();ensureCloudAdmin()},{passive:true});
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
