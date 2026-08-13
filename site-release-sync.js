@@ -1,11 +1,20 @@
 (()=>{
   'use strict';
   const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const WINDOWS_DOWNLOAD_PAGE='https://mcutracker.itch.io/mcu-tracker-ultimate';
 
   async function json(url){
     const r=await fetch(url+'?t='+Date.now(),{cache:'no-store'});
     if(!r.ok)throw new Error('HTTP '+r.status);
     return r.json();
+  }
+
+  function wireWindowsDownload(){
+    const btn=document.querySelector('a[href="downloads/MCU_Tracker_Ultimate_Setup.exe"],a[href="/downloads/MCU_Tracker_Ultimate_Setup.exe"]');
+    if(!btn)return;
+    btn.href=WINDOWS_DOWNLOAD_PAGE;
+    btn.removeAttribute('download');
+    btn.textContent='🪟 Windows İçin İndir';
   }
 
   function ensureMaintenanceUI(){
@@ -69,6 +78,6 @@
     }
   }
 
-  function start(){ensureMaintenanceUI();syncReleaseInfo();}
+  function start(){wireWindowsDownload();ensureMaintenanceUI();syncReleaseInfo();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
