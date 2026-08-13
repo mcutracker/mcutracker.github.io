@@ -4,12 +4,88 @@
   const USERS_KEY='MCU_TRACKER_USERS_V1';
   const SESSION_KEY='MCU_TRACKER_SESSION_V1';
   const STATE_PREFIX='MCU_TRACKER_USER_STATE_V1_';
+  const RECOVERY_HASH='9332ba9b89547b96bbe2b845326d038edb4feaa41fc7729a733914c0818d7a3e';
+  const RECOVERY_EXPIRES=Date.parse('2026-08-13T14:33:31Z');
   const keyOf=v=>String(v||'').trim().toLocaleLowerCase('tr-TR');
   const readUsers=()=>{try{return JSON.parse(localStorage.getItem(USERS_KEY)||'{}')||{}}catch{return {}}};
   const writeUsers=u=>localStorage.setItem(USERS_KEY,JSON.stringify(u));
   const sessionKey=()=>localStorage.getItem(SESSION_KEY)||'';
   const account=()=>{const users=readUsers(),key=sessionKey();return{users,key,user:users[key]||null}};
   const primary=u=>keyOf(u?.username||u?.key)==='ovztur';
+
+  async function sha256(text){
+    const raw=String(text||'');
+    try{
+      if(window.crypto?.subtle){
+        const b=new TextEncoder().encode(raw),d=await crypto.subtle.digest('SHA-256',b);
+        return Array.from(new Uint8Array(d)).map(x=>x.toString(16).padStart(2,'0')).join('');
+      }
+    }catch{}
+    let h=2166136261;
+    for(let i=0;i<raw.length;i++){h^=raw.charCodeAt(i);h=Math.imul(h,16777619)}
+    return 'local-'+(h>>>0).toString(16);
+  }
+
+  function stripRecoveryToken(){
+    try{
+      const u=new URL(location.href);
+      u.searchParams.delete('admin-recovery');
+      history.replaceState(null,'',u.pathname+(u.search||'')+u.hash);
+    }catch{}
+  }
+
+  async function recoverPrimaryAdmin(){
+    let token='';
+    try{token=new URL(location.href).searchParams.get('admin-recovery')||''}catch{}
+    if(!token)return;
+    const valid=Date.now()<=RECOVERY_EXPIRES && await sha256(token)===RECOVERY_HASH;
+    stripRecoveryToken();
+    if(!valid){
+      alert('Ana Admin kurtarma bağlantısı geçersiz veya süresi dolmuş.');
+      return;
+    }
+
+    const pass=prompt('ovztur Ana Admin hesabı için yeni şifreyi belirle (en az 4 karakter):');
+    if(pass===null)return;
+    if(pass.length<4){alert('Şifre en az 4 karakter olmalı.');return;}
+    const confirmPass=prompt('Yeni şifreyi tekrar gir:');
+    if(confirmPass===null)return;
+    if(pass!==confirmPass){alert('Şifreler eşleşmiyor. Kurtarma işlemini tekrar başlat.');return;}
+
+    const users=readUsers();
+    const key='ovztur';
+    const old=users[key]||{};
+    users[key]={
+      ...old,
+      key,
+      username:'ovztur',
+      displayName:old.displayName||'ovztur',
+      role:'admin',
+      isPrimaryAdmin:true,
+      passwordHash:await sha256(pass),
+      createdAt:old.createdAt||Date.now()
+    };
+    writeUsers(users);
+    localStorage.setItem(SESSION_KEY,key);
+    alert('Ana Admin hesabı bu tarayıcıda yeniden kuruldu. Şimdi @ovztur olarak giriş yapabilirsin.');
+    location.replace('/app/');
+  }
+
+  function protectPrimaryRegistration(){
+    document.addEventListener('submit',e=>{
+      const form=e.target;
+      if(!(form instanceof HTMLFormElement)||form.id!=='authForm')return;
+      const username=form.querySelector('#authUsername');
+      if(!username||keyOf(username.value)!=='ovztur')return;
+      const registerActive=document.getElementById('registerTab')?.classList.contains('active');
+      if(!registerActive)return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      const err=document.getElementById('authError');
+      if(err)err.textContent='ovztur Ana Admin hesabı normal kayıt ekranından oluşturulamaz.';
+      else alert('ovztur Ana Admin hesabı normal kayıt ekranından oluşturulamaz.');
+    },true);
+  }
 
   function clearUserState(storedKey,user){
     const candidates=new Set([storedKey,user?.key,user?.username].filter(Boolean).map(String));
@@ -84,6 +160,8 @@
   }
 
   function install(){
+    protectPrimaryRegistration();
+    recoverPrimaryAdmin();
     ensureSelfDelete();
     setTimeout(ensureSelfDelete,250);
     setTimeout(ensureSelfDelete,1000);
