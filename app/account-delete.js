@@ -63,12 +63,34 @@
     if(logout)side.insertBefore(btn,logout);else side.appendChild(btn);
   }
 
+  function ensureReleaseNotes(){
+    const existing=document.getElementById('mcuReleaseNotesBtn');
+    if(existing){
+      existing.textContent='📋 Yama Notları';
+      return;
+    }
+    if(document.getElementById('mcuReleaseNotesLoader'))return;
+    const side=document.getElementById('sideMenu');
+    if(!side)return;
+    const s=document.createElement('script');
+    s.id='mcuReleaseNotesLoader';
+    s.src='https://mcutracker.github.io/app/release-notes.js?t='+Date.now();
+    s.async=true;
+    s.onload=()=>{
+      const btn=document.getElementById('mcuReleaseNotesBtn');
+      if(btn)btn.textContent='📋 Yama Notları';
+    };
+    document.head.appendChild(s);
+  }
+
   function install(){
     ensureSelfDelete();
     setTimeout(ensureSelfDelete,250);
     setTimeout(ensureSelfDelete,1000);
-    document.addEventListener('click',()=>setTimeout(ensureSelfDelete,0),true);
-    window.addEventListener('focus',ensureSelfDelete,{passive:true});
+    setTimeout(ensureReleaseNotes,600);
+    setTimeout(ensureReleaseNotes,1800);
+    document.addEventListener('click',()=>setTimeout(()=>{ensureSelfDelete();ensureReleaseNotes()},0),true);
+    window.addEventListener('focus',()=>{ensureSelfDelete();ensureReleaseNotes()},{passive:true});
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
