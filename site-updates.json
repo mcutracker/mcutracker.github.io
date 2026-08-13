@@ -3,6 +3,15 @@
   "entries": [
     {
       "date": "2026-08-13",
+      "title": "Admin İstatistik Kartı Sabitlendi",
+      "items": [
+        "Canlı Kullanım / Rating kartının Admin Paneli yeniden çizildiğinde kaybolmasına neden olan arayüz sorunu giderildi.",
+        "Kart görünür olduğunda korunur ve Admin Merkezi yenilense bile otomatik olarak tekrar yerine yerleştirilir.",
+        "Düzeltme mevcut v1.6.17 sürümü değiştirilmeden yayınlandı."
+      ]
+    },
+    {
+      "date": "2026-08-13",
       "title": "Admin Paneli İstatistikleri",
       "items": [
         "Admin panelindeki kullanım istatistik kartı yeniden etkinleştirildi.",
