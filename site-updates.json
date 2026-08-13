@@ -1,0 +1,30 @@
+{
+  "updated": "2026-08-13",
+  "entries": [
+    {
+      "date": "2026-08-13",
+      "title": "Arayüz Bakımı",
+      "items": [
+        "İzleme ekranındaki Tümünü İşaretle ve Tümünü Kaldır toplu işlem butonları kaldırıldı.",
+        "Düzeltme web ve Windows ortak uygulama akışında geçerli olacak şekilde uygulandı."
+      ]
+    },
+    {
+      "date": "2026-08-13",
+      "title": "Ortak Hesap Sistemi",
+      "items": [
+        "Aynı kullanıcı adı ve şifreyle web ve Windows uygulamasında oturum açılabilir.",
+        "İzleme ilerlemesi ve hesap durumu ortak hesap sistemi üzerinden senkronize edilir.",
+        "Admin yetkileri ortak hesap merkezinden yönetilir."
+      ]
+    },
+    {
+      "date": "2026-08-13",
+      "title": "Yama Notları",
+      "items": [
+        "Yama Notları uygulama menüsünden erişilebilir hale getirildi.",
+        "Mevcut v1.6.17 sürümü korunarak bakım değişiklikleri yayınlanabilir."
+      ]
+    }
+  ]
+}
