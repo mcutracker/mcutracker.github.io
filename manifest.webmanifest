@@ -1,0 +1,21 @@
+{
+  "name": "MCU Tracker Ultimate",
+  "short_name": "MCU Tracker",
+  "description": "MCU filmlerini ve dizilerini takip et; kronolojik veya yayın sırasından ilerle, XP ve kupalar kazan, Infinity Stones koleksiyonunu tamamla ve kişisel ilerlemeni tek yerde gör.",
+  "start_url": "/app/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#08090d",
+  "theme_color": "#090a0e",
+  "lang": "tr",
+  "orientation": "any",
+  "categories": ["entertainment", "utilities"],
+  "icons": [
+    {
+      "src": "/assets/mcu-tracker-logo.png",
+      "sizes": "640x640",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
