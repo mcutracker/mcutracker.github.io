@@ -23,6 +23,16 @@
     }
   }
 
+  function ensureAdminUsageStats(){
+    if(window.__MCU_ADMIN_USAGE_STATS__||document.getElementById('mcuAdminUsageStatsLoader'))return;
+    const s=document.createElement('script');
+    s.id='mcuAdminUsageStatsLoader';
+    s.src='https://mcutracker.github.io/app/admin-usage-stats.js?t='+Date.now();
+    s.async=true;
+    s.onerror=()=>s.remove();
+    document.head.appendChild(s);
+  }
+
   function ensureButton(){
     let btn=document.getElementById('mcuReleaseNotesBtn');
     if(btn){btn.textContent='📋 Yama Notları';return btn;}
@@ -74,10 +84,12 @@
 
   function install(){
     ensureButton();
+    ensureAdminUsageStats();
     setTimeout(maybeAutoOpen,800);
     setTimeout(maybeAutoOpen,2200);
-    document.addEventListener('click',()=>setTimeout(()=>{ensureButton();maybeAutoOpen()},0),true);
-    window.addEventListener('focus',ensureButton,{passive:true});
+    setTimeout(ensureAdminUsageStats,500);
+    document.addEventListener('click',()=>setTimeout(()=>{ensureButton();ensureAdminUsageStats();maybeAutoOpen()},0),true);
+    window.addEventListener('focus',()=>{ensureButton();ensureAdminUsageStats()},{passive:true});
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
