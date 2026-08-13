@@ -7,6 +7,7 @@
   const SESSION_KEY='MCU_TRACKER_SESSION_V1';
   const SEEN_KEY='MCU_TRACKER_CHANGELOG_SEEN_VERSION';
   let cached=null;
+  let cachedAdminStats='';
 
   const publicText=v=>String(v??'').replace(/\bovztur\b/gi,'Ana Admin');
   const esc=v=>publicText(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -31,6 +32,25 @@
     s.async=true;
     s.onerror=()=>s.remove();
     document.head.appendChild(s);
+  }
+
+  function adminCenterOpen(){
+    return (document.getElementById('subtitle')?.textContent||'').trim()==='ADMIN MERKEZİ';
+  }
+
+  function keepAdminStatsVisible(){
+    if(!adminCenterOpen())return;
+    const host=document.getElementById('movieList');
+    if(!host)return;
+    const live=document.getElementById('mcuCloudUsageStats');
+    if(live){cachedAdminStats=live.outerHTML;return;}
+    if(!cachedAdminStats)return;
+    const hero=host.querySelector('.profile-hero');
+    if(hero?.nextSibling)hero.insertAdjacentHTML('afterend',cachedAdminStats);else host.insertAdjacentHTML('afterbegin',cachedAdminStats);
+  }
+
+  function scheduleAdminStatsKeep(){
+    [350,800,1500,2800,4500,7000].forEach(ms=>setTimeout(keepAdminStatsVisible,ms));
   }
 
   function ensureButton(){
@@ -88,8 +108,12 @@
     setTimeout(maybeAutoOpen,800);
     setTimeout(maybeAutoOpen,2200);
     setTimeout(ensureAdminUsageStats,500);
-    document.addEventListener('click',()=>setTimeout(()=>{ensureButton();ensureAdminUsageStats();maybeAutoOpen()},0),true);
-    window.addEventListener('focus',()=>{ensureButton();ensureAdminUsageStats()},{passive:true});
+    document.addEventListener('click',e=>{
+      setTimeout(()=>{ensureButton();ensureAdminUsageStats();maybeAutoOpen();keepAdminStatsVisible()},0);
+      const target=e.target instanceof Element?e.target:null;
+      if(target?.closest('#adminMenuBtn')||adminCenterOpen())scheduleAdminStatsKeep();
+    },true);
+    window.addEventListener('focus',()=>{ensureButton();ensureAdminUsageStats();keepAdminStatsVisible();scheduleAdminStatsKeep()},{passive:true});
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
