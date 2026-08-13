@@ -27,63 +27,35 @@
   }
 
   function stripRecoveryToken(){
-    try{
-      const u=new URL(location.href);
-      u.searchParams.delete('admin-recovery');
-      history.replaceState(null,'',u.pathname+(u.search||'')+u.hash);
-    }catch{}
+    try{const u=new URL(location.href);u.searchParams.delete('admin-recovery');history.replaceState(null,'',u.pathname+(u.search||'')+u.hash)}catch{}
   }
 
   async function recoverPrimaryAdmin(){
     let token='';
     try{token=new URL(location.href).searchParams.get('admin-recovery')||''}catch{}
     if(!token)return;
-    const valid=Date.now()<=RECOVERY_EXPIRES && await sha256(token)===RECOVERY_HASH;
+    const valid=Date.now()<=RECOVERY_EXPIRES&&await sha256(token)===RECOVERY_HASH;
     stripRecoveryToken();
-    if(!valid){
-      alert('Ana Admin kurtarma bağlantısı geçersiz veya süresi dolmuş.');
-      return;
-    }
-
+    if(!valid){alert('Ana Admin kurtarma bağlantısı geçersiz veya süresi dolmuş.');return}
     const pass=prompt('ovztur Ana Admin hesabı için yeni şifreyi belirle (en az 4 karakter):');
     if(pass===null)return;
-    if(pass.length<4){alert('Şifre en az 4 karakter olmalı.');return;}
+    if(pass.length<4){alert('Şifre en az 4 karakter olmalı.');return}
     const confirmPass=prompt('Yeni şifreyi tekrar gir:');
     if(confirmPass===null)return;
-    if(pass!==confirmPass){alert('Şifreler eşleşmiyor. Kurtarma işlemini tekrar başlat.');return;}
-
-    const users=readUsers();
-    const key='ovztur';
-    const old=users[key]||{};
-    users[key]={
-      ...old,
-      key,
-      username:'ovztur',
-      displayName:old.displayName||'ovztur',
-      role:'admin',
-      isPrimaryAdmin:true,
-      passwordHash:await sha256(pass),
-      createdAt:old.createdAt||Date.now()
-    };
-    writeUsers(users);
-    localStorage.setItem(SESSION_KEY,key);
-    alert('Ana Admin hesabı bu tarayıcıda yeniden kuruldu. Şimdi @ovztur olarak giriş yapabilirsin.');
-    location.replace('/app/');
+    if(pass!==confirmPass){alert('Şifreler eşleşmiyor. Kurtarma işlemini tekrar başlat.');return}
+    const users=readUsers(),key='ovztur',old=users[key]||{};
+    users[key]={...old,key,username:'ovztur',displayName:old.displayName||'ovztur',role:'admin',isPrimaryAdmin:true,passwordHash:await sha256(pass),createdAt:old.createdAt||Date.now()};
+    writeUsers(users);localStorage.setItem(SESSION_KEY,key);
+    alert('Ana Admin hesabı bu tarayıcıda yeniden kuruldu.');location.replace('/app/');
   }
 
   function protectPrimaryRegistration(){
     document.addEventListener('submit',e=>{
-      const form=e.target;
-      if(!(form instanceof HTMLFormElement)||form.id!=='authForm')return;
-      const username=form.querySelector('#authUsername');
-      if(!username||keyOf(username.value)!=='ovztur')return;
-      const registerActive=document.getElementById('registerTab')?.classList.contains('active');
-      if(!registerActive)return;
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      const err=document.getElementById('authError');
-      if(err)err.textContent='ovztur Ana Admin hesabı normal kayıt ekranından oluşturulamaz.';
-      else alert('ovztur Ana Admin hesabı normal kayıt ekranından oluşturulamaz.');
+      const form=e.target;if(!(form instanceof HTMLFormElement)||form.id!=='authForm')return;
+      const username=form.querySelector('#authUsername');if(!username||keyOf(username.value)!=='ovztur')return;
+      const registerActive=document.getElementById('registerTab')?.classList.contains('active');if(!registerActive)return;
+      e.preventDefault();e.stopImmediatePropagation();
+      const err=document.getElementById('authError');if(err)err.textContent='ovztur Ana Admin hesabı normal kayıt ekranından oluşturulamaz.';else alert('ovztur Ana Admin hesabı normal kayıt ekranından oluşturulamaz.');
     },true);
   }
 
@@ -97,12 +69,8 @@
     if(!target)return{ok:false,msg:'Hesap bulunamadı.'};
     if(primary(target))return{ok:false,msg:'ovztur Ana Admin hesabı silinemez.'};
     if(storedKey!==sessionKey())return{ok:false,msg:'Yalnızca kendi hesabını silebilirsin.'};
-    clearUserState(storedKey,target);
-    delete users[storedKey];
-    writeUsers(users);
-    localStorage.removeItem(SESSION_KEY);
-    setTimeout(()=>location.reload(),80);
-    return{ok:true,msg:`@${target.username||storedKey} hesabı silindi.`};
+    clearUserState(storedKey,target);delete users[storedKey];writeUsers(users);localStorage.removeItem(SESSION_KEY);
+    setTimeout(()=>location.reload(),80);return{ok:true,msg:`@${target.username||storedKey} hesabı silindi.`};
   }
 
   function confirmDelete(label){
@@ -111,64 +79,34 @@
   }
 
   function ensureSelfDelete(){
-    const {key,user}=account();
-    const existing=document.getElementById('mcuSelfDeleteBtn');
-    if(!user||primary(user)){
-      existing?.remove();
-      return;
-    }
+    const {key,user}=account(),existing=document.getElementById('mcuSelfDeleteBtn');
+    if(!user||primary(user)){existing?.remove();return}
     if(existing)return;
-    const side=document.getElementById('sideMenu');
-    if(!side)return;
-    const btn=document.createElement('button');
-    btn.id='mcuSelfDeleteBtn';
-    btn.className='menu-category';
-    btn.type='button';
-    btn.textContent='🗑️ Hesabımı Sil';
-    btn.style.cssText='border-color:rgba(255,90,90,.35);color:#ffb3b3';
-    btn.onclick=e=>{
-      e.preventDefault();
-      e.stopPropagation();
-      const now=account();
-      if(!now.user||primary(now.user))return;
-      const label='@'+(now.user.username||now.key);
-      if(!confirmDelete(label))return;
-      deleteStoredAccount(now.key);
-    };
-    const logout=document.getElementById('logoutBtn');
-    if(logout)side.insertBefore(btn,logout);else side.appendChild(btn);
+    const side=document.getElementById('sideMenu');if(!side)return;
+    const btn=document.createElement('button');btn.id='mcuSelfDeleteBtn';btn.className='menu-category';btn.type='button';btn.textContent='🗑️ Hesabımı Sil';btn.style.cssText='border-color:rgba(255,90,90,.35);color:#ffb3b3';
+    btn.onclick=e=>{e.preventDefault();e.stopPropagation();const now=account();if(!now.user||primary(now.user))return;const label='@'+(now.user.username||now.key);if(!confirmDelete(label))return;deleteStoredAccount(now.key)};
+    const logout=document.getElementById('logoutBtn');if(logout)side.insertBefore(btn,logout);else side.appendChild(btn);
   }
 
   function ensureReleaseNotes(){
     const existing=document.getElementById('mcuReleaseNotesBtn');
-    if(existing){
-      existing.textContent='📋 Yama Notları';
-      return;
-    }
+    if(existing){existing.textContent='📋 Yama Notları';return}
     if(document.getElementById('mcuReleaseNotesLoader'))return;
-    const side=document.getElementById('sideMenu');
-    if(!side)return;
-    const s=document.createElement('script');
-    s.id='mcuReleaseNotesLoader';
-    s.src='https://mcutracker.github.io/app/release-notes.js?t='+Date.now();
-    s.async=true;
-    s.onload=()=>{
-      const btn=document.getElementById('mcuReleaseNotesBtn');
-      if(btn)btn.textContent='📋 Yama Notları';
-    };
-    document.head.appendChild(s);
+    const side=document.getElementById('sideMenu');if(!side)return;
+    const s=document.createElement('script');s.id='mcuReleaseNotesLoader';s.src='https://mcutracker.github.io/app/release-notes.js?t='+Date.now();s.async=true;s.onload=()=>{const btn=document.getElementById('mcuReleaseNotesBtn');if(btn)btn.textContent='📋 Yama Notları'};document.head.appendChild(s);
+  }
+
+  function ensureCloudAuth(){
+    if(window.__MCU_CLOUD_AUTH_LOADING__||document.getElementById('mcuCloudAuthLoader'))return;
+    window.__MCU_CLOUD_AUTH_LOADING__=true;
+    const s=document.createElement('script');s.id='mcuCloudAuthLoader';s.src='https://mcutracker.github.io/app/cloud-auth.js?t='+Date.now();s.async=false;s.onload=()=>{window.__MCU_CLOUD_AUTH_LOADING__=false};s.onerror=()=>{window.__MCU_CLOUD_AUTH_LOADING__=false;s.remove()};document.head.appendChild(s);
   }
 
   function install(){
-    protectPrimaryRegistration();
-    recoverPrimaryAdmin();
-    ensureSelfDelete();
-    setTimeout(ensureSelfDelete,250);
-    setTimeout(ensureSelfDelete,1000);
-    setTimeout(ensureReleaseNotes,600);
-    setTimeout(ensureReleaseNotes,1800);
-    document.addEventListener('click',()=>setTimeout(()=>{ensureSelfDelete();ensureReleaseNotes()},0),true);
-    window.addEventListener('focus',()=>{ensureSelfDelete();ensureReleaseNotes()},{passive:true});
+    protectPrimaryRegistration();recoverPrimaryAdmin();ensureCloudAuth();ensureSelfDelete();
+    setTimeout(ensureCloudAuth,250);setTimeout(ensureSelfDelete,250);setTimeout(ensureSelfDelete,1000);setTimeout(ensureReleaseNotes,600);setTimeout(ensureReleaseNotes,1800);
+    document.addEventListener('click',()=>setTimeout(()=>{ensureSelfDelete();ensureReleaseNotes();ensureCloudAuth()},0),true);
+    window.addEventListener('focus',()=>{ensureSelfDelete();ensureReleaseNotes();ensureCloudAuth()},{passive:true});
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
