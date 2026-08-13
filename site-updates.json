@@ -3,6 +3,14 @@
   "entries": [
     {
       "date": "2026-08-13",
+      "title": "Admin Paneli İstatistikleri",
+      "items": [
+        "Admin panelindeki kullanım istatistik kartı yeniden etkinleştirildi.",
+        "Toplam hesap ve genel kullanım sayaçları tekrar tek ekranda gösteriliyor."
+      ]
+    },
+    {
+      "date": "2026-08-13",
       "title": "Hesap Ayarları",
       "items": [
         "Kullanıcıların kendi hesaplarını kapatabilmesi için hesap yönetimi Ayarlar bölümüne taşındı.",
