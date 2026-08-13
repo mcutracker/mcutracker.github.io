@@ -102,11 +102,17 @@
     const s=document.createElement('script');s.id='mcuCloudAuthLoader';s.src='https://mcutracker.github.io/app/cloud-auth.js?t='+Date.now();s.async=false;s.onload=()=>{window.__MCU_CLOUD_AUTH_LOADING__=false};s.onerror=()=>{window.__MCU_CLOUD_AUTH_LOADING__=false;s.remove()};document.head.appendChild(s);
   }
 
+  function ensureCloudAdmin(){
+    if(window.__MCU_CLOUD_ADMIN_LOADING__||document.getElementById('mcuCloudAdminLoader'))return;
+    window.__MCU_CLOUD_ADMIN_LOADING__=true;
+    const s=document.createElement('script');s.id='mcuCloudAdminLoader';s.src='https://mcutracker.github.io/app/cloud-admin.js?t='+Date.now();s.async=false;s.onload=()=>{window.__MCU_CLOUD_ADMIN_LOADING__=false};s.onerror=()=>{window.__MCU_CLOUD_ADMIN_LOADING__=false;s.remove()};document.head.appendChild(s);
+  }
+
   function install(){
-    protectPrimaryRegistration();recoverPrimaryAdmin();ensureCloudAuth();ensureSelfDelete();
-    setTimeout(ensureCloudAuth,250);setTimeout(ensureSelfDelete,250);setTimeout(ensureSelfDelete,1000);setTimeout(ensureReleaseNotes,600);setTimeout(ensureReleaseNotes,1800);
-    document.addEventListener('click',()=>setTimeout(()=>{ensureSelfDelete();ensureReleaseNotes();ensureCloudAuth()},0),true);
-    window.addEventListener('focus',()=>{ensureSelfDelete();ensureReleaseNotes();ensureCloudAuth()},{passive:true});
+    protectPrimaryRegistration();recoverPrimaryAdmin();ensureCloudAuth();ensureCloudAdmin();ensureSelfDelete();
+    setTimeout(ensureCloudAuth,250);setTimeout(ensureCloudAdmin,350);setTimeout(ensureSelfDelete,250);setTimeout(ensureSelfDelete,1000);setTimeout(ensureReleaseNotes,600);setTimeout(ensureReleaseNotes,1800);
+    document.addEventListener('click',()=>setTimeout(()=>{ensureSelfDelete();ensureReleaseNotes();ensureCloudAuth();ensureCloudAdmin()},0),true);
+    window.addEventListener('focus',()=>{ensureSelfDelete();ensureReleaseNotes();ensureCloudAuth();ensureCloudAdmin()},{passive:true});
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
