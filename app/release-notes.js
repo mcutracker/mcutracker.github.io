@@ -1,5 +1,7 @@
 (()=>{
   'use strict';
+  if(window.__MCU_RELEASE_NOTES_LOADED__)return;
+  window.__MCU_RELEASE_NOTES_LOADED__=true;
   const VERSION='1.6.17';
   const CHANGELOG_URL='https://mcutracker.github.io/app/changelog.json';
   const SESSION_KEY='MCU_TRACKER_SESSION_V1';
@@ -17,13 +19,13 @@
       cached=await r.json();
       return cached;
     }catch{
-      return {latest:VERSION,entries:[{version:VERSION,date:'2026-08-12',title:'Güncelleme Notları',items:['Güncelleme notları şu anda çevrimdışı. İnternet bağlantısı geldiğinde bu sekmeyi yeniden açabilirsin.']}]} ;
+      return {latest:VERSION,entries:[{version:VERSION,date:'2026-08-13',title:'Yama Notları',items:['Yama notları şu anda çevrimdışı. İnternet bağlantısı geldiğinde bu sekmeyi yeniden açabilirsin.']}]} ;
     }
   }
 
   function ensureButton(){
     let btn=document.getElementById('mcuReleaseNotesBtn');
-    if(btn)return btn;
+    if(btn){btn.textContent='📋 Yama Notları';return btn;}
     const side=document.getElementById('sideMenu');
     if(!side)return null;
     btn=document.createElement('button');
@@ -31,7 +33,7 @@
     btn.className='menu-category';
     btn.type='button';
     btn.dataset.cat='updates';
-    btn.textContent='📋 Güncelleme Notları';
+    btn.textContent='📋 Yama Notları';
     const settings=side.querySelector('[data-cat="settings"]');
     if(settings)side.insertBefore(btn,settings);else{
       const admin=document.getElementById('adminMenuBtn');
@@ -53,9 +55,9 @@
     const data=await loadNotes();
     const entries=Array.isArray(data?.entries)?data.entries:[];
     document.querySelectorAll('.menu-category').forEach(b=>b.classList.toggle('active',b.id==='mcuReleaseNotesBtn'));
-    const subtitle=document.getElementById('subtitle');if(subtitle)subtitle.textContent='GÜNCELLEME NOTLARI';
+    const subtitle=document.getElementById('subtitle');if(subtitle)subtitle.textContent='YAMA NOTLARI';
     const latest=data?.latest||VERSION;
-    host.innerHTML=`<section class="profile-hero" style="grid-template-columns:72px 1fr"><div class="profile-avatar">📋</div><div><div class="profile-name">Güncelleme Notları</div><div class="profile-rank">MCU Tracker Ultimate • v${esc(latest)}</div><p class="meta" style="margin:8px 0 0">Uygulamaya eklenen özellikler, düzeltmeler ve bakım notları.</p></div></section>${entries.map((entry,i)=>`<section class="panel" style="border:${i===0?'1px solid rgba(255,255,255,.18)':''}"><div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap"><div><h3 style="margin:0 0 4px">v${esc(entry.version)} • ${esc(entry.title||'Güncelleme')}</h3><div class="meta">${esc(entry.date||'')}</div></div>${i===0?'<span class="role-badge admin">YENİ</span>':''}</div><div style="margin-top:14px;display:grid;gap:9px">${(entry.items||[]).map(x=>`<div style="display:flex;gap:9px;align-items:flex-start"><span>•</span><span>${esc(x)}</span></div>`).join('')}</div></section>`).join('')||'<section class="panel"><p class="meta">Henüz güncelleme notu bulunmuyor.</p></section>'}`;
+    host.innerHTML=`<section class="profile-hero" style="grid-template-columns:72px 1fr"><div class="profile-avatar">📋</div><div><div class="profile-name">Yama Notları</div><div class="profile-rank">MCU Tracker Ultimate • v${esc(latest)}</div><p class="meta" style="margin:8px 0 0">Uygulamaya eklenen özellikler, düzeltmeler ve bakım notları.</p></div></section>${entries.map((entry,i)=>`<section class="panel" style="border:${i===0?'1px solid rgba(255,255,255,.18)':''}"><div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap"><div><h3 style="margin:0 0 4px">v${esc(entry.version)} • ${esc(entry.title||'Yama')}</h3><div class="meta">${esc(entry.date||'')}</div></div>${i===0?'<span class="role-badge admin">YENİ</span>':''}</div><div style="margin-top:14px;display:grid;gap:9px">${(entry.items||[]).map(x=>`<div style="display:flex;gap:9px;align-items:flex-start"><span>•</span><span>${esc(x)}</span></div>`).join('')}</div></section>`).join('')||'<section class="panel"><p class="meta">Henüz yama notu bulunmuyor.</p></section>'}`;
     document.getElementById('loadMore')?.classList.add('hidden');
     if(markSeen||localStorage.getItem(SEEN_KEY)!==latest){try{localStorage.setItem(SEEN_KEY,latest)}catch{}}
   }
