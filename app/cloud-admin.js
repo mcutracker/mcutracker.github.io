@@ -7,10 +7,22 @@
   const SESSION_KEY='MCU_TRACKER_SESSION_V1';
   const STATE_PREFIX='MCU_TRACKER_USER_STATE_V1_';
   const keyOf=v=>String(v||'').trim().toLocaleLowerCase('tr-TR');
-  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[c]));
   const token=()=>localStorage.getItem(TOKEN_KEY)||'';
   const readUsers=()=>{try{return JSON.parse(localStorage.getItem(USERS_KEY)||'{}')||{}}catch{return {}}};
   const writeUsers=u=>localStorage.setItem(USERS_KEY,JSON.stringify(u));
+
+  function removeBulkWatchActions(){
+    if(!document.getElementById('mcuBulkWatchHideStyle')){
+      const style=document.createElement('style');
+      style.id='mcuBulkWatchHideStyle';
+      style.textContent='#allBtn,#noneBtn{display:none!important}';
+      (document.head||document.documentElement).appendChild(style);
+    }
+    document.getElementById('allBtn')?.remove();
+    document.getElementById('noneBtn')?.remove();
+  }
+  removeBulkWatchActions();
 
   async function api(action,extra={}){
     const t=token();
@@ -51,6 +63,7 @@
   function roleLabel(a){return a.role==='superadmin'?'🛡️ Ana Admin':a.role==='admin'?'👑 Admin':'👤 Kullanıcı'}
 
   async function renderCloudAdmin(message=''){
+    removeBulkWatchActions();
     const host=document.getElementById('movieList');
     if(!host)return;
     const subtitle=document.getElementById('subtitle');if(subtitle)subtitle.textContent='ADMIN MERKEZİ';
@@ -105,6 +118,7 @@
   }
 
   document.addEventListener('click',e=>{
+    removeBulkWatchActions();
     const target=e.target instanceof Element?e.target:null;if(!target)return;
     const adminMenu=target.closest('#adminMenuBtn');
     if(adminMenu&&token()){
@@ -121,11 +135,13 @@
   },true);
 
   window.addEventListener('focus',()=>{
+    removeBulkWatchActions();
     const me=(()=>{try{return typeof currentUser!=='undefined'?currentUser:null}catch{return null}})();
     if(token()&&(me?.role==='admin'||me?.isPrimaryAdmin||keyOf(me?.username)==='ovztur'))listCloudAccounts().catch(()=>{});
   },{passive:true});
 
   setTimeout(()=>{
+    removeBulkWatchActions();
     const me=(()=>{try{return typeof currentUser!=='undefined'?currentUser:null}catch{return null}})();
     if(token()&&(me?.role==='admin'||me?.isPrimaryAdmin||keyOf(me?.username)==='ovztur'))listCloudAccounts().catch(()=>{});
   },900);
