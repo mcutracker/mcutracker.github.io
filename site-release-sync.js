@@ -47,11 +47,37 @@
         const section=document.createElement('section');
         section.className='section';
         section.id='windows-kurulum';
-        section.innerHTML=`<div class="wrap"><h2>Windows’a uygulama olarak kur.</h2><p class="lead">MCU Tracker’ı EXE indirmeden, Microsoft Edge veya Google Chrome üzerinden masaüstü uygulaması gibi kurabilirsin.</p><div class="cards"><div class="card"><b>1. MCU Tracker’ı aç</b><p>Önce web uygulamasını tarayıcıda aç. Hesabın ve ilerlemen aynı web uygulamasında çalışır.</p></div><div class="card"><b>2. “Windows’a Kur”a bas</b><p>Tarayıcı kurulum penceresini destekliyorsa yukarıdaki buton kurulum istemini doğrudan açar.</p></div><div class="card"><b>3. Gerekirse tarayıcı menüsünü kullan</b><p>Edge: adres çubuğundaki uygulama yükleme simgesi veya <b>⋯ → Uygulamalar → Bu siteyi uygulama olarak yükle</b>. Chrome: adres çubuğundaki yükleme simgesi.</p></div></div><div class="privacy-note" id="pwaInstallStatus">${isStandalone()?'✅ MCU Tracker bu cihazda uygulama olarak çalışıyor.':isChromium()?'Hazır. “Windows’a Kur” butonuna basabilirsin.':'En iyi kurulum deneyimi için Microsoft Edge veya Google Chrome kullan.'}</div></div>`;
+        section.innerHTML=`<div class="wrap"><h2>Windows’a uygulama olarak kur.</h2><p class="lead">MCU Tracker’ı EXE indirmeden, Microsoft Edge veya Google Chrome üzerinden masaüstü uygulaması gibi kurabilirsin.</p><div class="cards"><div class="card"><b>1. MCU Tracker’ı aç</b><p>Önce web uygulamasını tarayıcıda aç. Aynı hesabın ve ilerlemen web ile Windows arasında ortak çalışır.</p></div><div class="card"><b>2. “Windows’a Kur”a bas</b><p>Tarayıcı kurulum penceresini destekliyorsa yukarıdaki buton kurulum istemini doğrudan açar.</p></div><div class="card"><b>3. Gerekirse tarayıcı menüsünü kullan</b><p>Edge: adres çubuğundaki uygulama yükleme simgesi veya <b>⋯ → Uygulamalar → Bu siteyi uygulama olarak yükle</b>. Chrome: adres çubuğundaki yükleme simgesi.</p></div></div><div class="privacy-note" id="pwaInstallStatus">${isStandalone()?'✅ MCU Tracker bu cihazda uygulama olarak çalışıyor.':isChromium()?'Hazır. “Windows’a Kur” butonuna basabilirsin.':'En iyi kurulum deneyimi için Microsoft Edge veya Google Chrome kullan.'}</div></div>`;
         features.parentNode.insertBefore(section,features);
       }
     }
     updateInstallButton();
+  }
+
+  function ensureMaintenanceUI(){
+    if(document.getElementById('bakim'))return;
+    const section=document.createElement('section');
+    section.className='section';
+    section.id='bakim';
+    section.innerHTML='<div class="wrap"><h2>Son bakım ve düzeltmeler</h2><p class="lead">Sürüm numarası değişmese bile uygulamada yapılan arayüz, hesap ve altyapı düzeltmeleri burada yayınlanır.</p><div class="release" id="siteMaintenanceList"><div class="rel"><div><b>Bakım bilgisi yükleniyor…</b></div><span>Fix</span></div></div></div>';
+    const releases=document.getElementById('surumler');
+    if(releases?.parentNode)releases.parentNode.insertBefore(section,releases);
+    else document.querySelector('main')?.appendChild(section);
+  }
+
+  function renderMaintenance(feed){
+    ensureMaintenanceUI();
+    const list=document.getElementById('siteMaintenanceList');
+    const entries=Array.isArray(feed?.entries)?feed.entries:[];
+    if(!list)return;
+    if(!entries.length){
+      list.innerHTML='<div class="rel"><div><b>Bakım kaydı yok.</b><br><small>Yeni bir düzeltme yayınlandığında burada görünecek.</small></div><span>Güncel</span></div>';
+      return;
+    }
+    list.innerHTML=entries.slice(0,6).map((entry,i)=>{
+      const items=(entry.items||[]).slice(0,4).map(x=>`<li>${esc(String(x).replace(/ovztur/gi,'Ana Admin'))}</li>`).join('');
+      return `<div class="rel"><div><b>${esc(entry.title||'Bakım')}</b><br><small>${esc(entry.date||'')}</small>${items?`<ul style="margin:8px 0 0;padding-left:18px">${items}</ul>`:''}</div><span>${i===0?'Son Fix':'Bakım'}</span></div>`;
+    }).join('');
   }
 
   async function installPwa(){
@@ -100,10 +126,12 @@
 
   async function syncReleaseInfo(){
     ensureInstallUI();
+    ensureMaintenanceUI();
     try{
-      const [manifest,changelog]=await Promise.all([
+      const [manifest,changelog,maintenance]=await Promise.all([
         json('app/latest.json'),
-        json('app/changelog.json')
+        json('app/changelog.json'),
+        json('site-updates.json').catch(()=>({entries:[]}))
       ]);
       const version=String(manifest?.version||changelog?.latest||'').trim();
       if(version){
@@ -115,12 +143,10 @@
       const latest=entries[0];
       const latestTitle=document.getElementById('siteLatestTitle');
       const latestItems=document.getElementById('siteLatestItems');
-      if(latestTitle&&latest){
-        latestTitle.textContent=`v${latest.version} • ${latest.title||'Güncelleme'}`;
-      }
-      if(latestItems&&latest){
-        latestItems.innerHTML=(latest.items||[]).slice(0,4).map(x=>`<li>${esc(String(x).replace(/ovztur/gi,'Ana Admin'))}</li>`).join('');
-      }
+      if(latestTitle&&latest)latestTitle.textContent=`v${latest.version} • ${latest.title||'Güncelleme'}`;
+      if(latestItems&&latest)latestItems.innerHTML=(latest.items||[]).slice(0,4).map(x=>`<li>${esc(String(x).replace(/ovztur/gi,'Ana Admin'))}</li>`).join('');
+
+      renderMaintenance(maintenance);
 
       const release=document.getElementById('siteReleaseList');
       if(release&&entries.length){
@@ -134,6 +160,6 @@
     }
   }
 
-  function start(){ensureInstallUI();syncReleaseInfo();}
+  function start(){ensureInstallUI();ensureMaintenanceUI();syncReleaseInfo();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
