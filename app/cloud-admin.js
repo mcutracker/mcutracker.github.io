@@ -7,10 +7,14 @@
   const SESSION_KEY='MCU_TRACKER_SESSION_V1';
   const STATE_PREFIX='MCU_TRACKER_USER_STATE_V1_';
   const keyOf=v=>String(v||'').trim().toLocaleLowerCase('tr-TR');
-  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[c]));
+  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const token=()=>localStorage.getItem(TOKEN_KEY)||'';
   const readUsers=()=>{try{return JSON.parse(localStorage.getItem(USERS_KEY)||'{}')||{}}catch{return {}}};
   const writeUsers=u=>localStorage.setItem(USERS_KEY,JSON.stringify(u));
+
+  function current(){
+    try{return typeof currentUser!=='undefined'?currentUser:null}catch{return null}
+  }
 
   function removeBulkWatchActions(){
     if(!document.getElementById('mcuBulkWatchHideStyle')){
@@ -22,7 +26,41 @@
     document.getElementById('allBtn')?.remove();
     document.getElementById('noneBtn')?.remove();
   }
-  removeBulkWatchActions();
+
+  function ensureSettingsSelfDelete(){
+    if(!token())return;
+    const me=current();
+    if(!me)return;
+    const primary=keyOf(me.username)==='ovztur'||me.isPrimaryAdmin===true;
+    const oldBtn=document.getElementById('mcuSelfDeleteBtn');
+    const oldCard=document.getElementById('mcuSelfDeleteCard');
+    if(oldBtn&&!oldCard?.contains(oldBtn))oldBtn.remove();
+
+    const grid=document.querySelector('.settings-grid');
+    if(!grid){oldCard?.remove();return;}
+
+    if(primary){
+      oldBtn?.remove();
+      if(oldCard?.dataset.mode==='protected')return;
+      oldCard?.remove();
+      const card=document.createElement('section');
+      card.id='mcuSelfDeleteCard';
+      card.dataset.mode='protected';
+      card.className='settings-card';
+      card.innerHTML='<h3>🛡️ Ana Admin Koruması</h3><p>Ana Admin hesabı sistem hesabıdır ve silinemez. Bu hesap için hesap silme düğmesi devre dışıdır.</p>';
+      grid.appendChild(card);
+      return;
+    }
+
+    if(oldCard?.dataset.mode==='delete'&&oldCard.querySelector('#mcuSelfDeleteBtn'))return;
+    oldCard?.remove();
+    const card=document.createElement('section');
+    card.id='mcuSelfDeleteCard';
+    card.dataset.mode='delete';
+    card.className='settings-card';
+    card.innerHTML='<h3>🗑️ Hesabı Sil</h3><p>Yalnızca şu an giriş yaptığın hesabı kalıcı olarak silebilirsin. Başka kullanıcıların hesaplarına dokunulmaz. Bu işlem geri alınamaz.</p><div class="settings-actions"><button id="mcuSelfDeleteBtn" class="secondary" type="button" style="border-color:rgba(255,90,90,.45);color:#ffb3b3">🗑️ Hesabımı Kalıcı Olarak Sil</button></div>';
+    grid.appendChild(card);
+  }
 
   async function api(action,extra={}){
     const t=token();
@@ -74,7 +112,7 @@
     const j=await listCloudAccounts();
     if(!j?.ok){host.innerHTML='<section class="panel"><b>Hesap merkezi yüklenemedi.</b><div class="meta">Oturumunu yenileyip tekrar dene.</div></section>';return;}
     const accounts=Array.isArray(j.accounts)?j.accounts:[];
-    const me=(()=>{try{return typeof currentUser!=='undefined'?currentUser:null}catch{return null}})();
+    const me=current();
     const superAdmin=keyOf(me?.username)==='ovztur'||me?.isPrimaryAdmin===true;
     const admins=accounts.filter(a=>a.role==='admin'||a.role==='superadmin').length;
     const rows=accounts.map(a=>{
@@ -104,13 +142,13 @@
   }
 
   async function deleteSelfCloud(){
-    const me=(()=>{try{return typeof currentUser!=='undefined'?currentUser:null}catch{return null}})();
+    const me=current();
     if(!me||keyOf(me.username)==='ovztur'||me.isPrimaryAdmin)return;
     const label='@'+(me.username||'hesap');
     if(!confirm(`${label} hesabı tüm platformlardan silinsin mi?`))return;
     if(!confirm('SON ONAY: Hesap ve buluttaki izleme, favori, not, XP, kupa ve puan verileri kalıcı olarak silinecek.'))return;
     const j=await api('delete_self');
-    if(!j?.ok){alert('Hesap silinemedi.');return;}
+    if(!j?.ok){alert(j?.error==='protected_account'?'Ana Admin hesabı silinemez.':'Hesap silinemedi.');return;}
     const users=readUsers(),k=keyOf(me.username);delete users[k];writeUsers(users);
     try{localStorage.removeItem(STATE_PREFIX+encodeURIComponent(k))}catch{}
     localStorage.removeItem(TOKEN_KEY);localStorage.removeItem(SESSION_KEY);
@@ -132,17 +170,19 @@
     if(delBtn){e.preventDefault();e.stopImmediatePropagation();deleteAccount(delBtn.dataset.cloudDelete);return;}
     const self=target.closest('#mcuSelfDeleteBtn');
     if(self&&token()){e.preventDefault();e.stopImmediatePropagation();deleteSelfCloud();return;}
+    setTimeout(ensureSettingsSelfDelete,0);
   },true);
 
   window.addEventListener('focus',()=>{
-    removeBulkWatchActions();
-    const me=(()=>{try{return typeof currentUser!=='undefined'?currentUser:null}catch{return null}})();
+    removeBulkWatchActions();ensureSettingsSelfDelete();
+    const me=current();
     if(token()&&(me?.role==='admin'||me?.isPrimaryAdmin||keyOf(me?.username)==='ovztur'))listCloudAccounts().catch(()=>{});
   },{passive:true});
 
   setTimeout(()=>{
-    removeBulkWatchActions();
-    const me=(()=>{try{return typeof currentUser!=='undefined'?currentUser:null}catch{return null}})();
+    removeBulkWatchActions();ensureSettingsSelfDelete();
+    const me=current();
     if(token()&&(me?.role==='admin'||me?.isPrimaryAdmin||keyOf(me?.username)==='ovztur'))listCloudAccounts().catch(()=>{});
   },900);
+  setTimeout(ensureSettingsSelfDelete,1500);
 })();
