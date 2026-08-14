@@ -1,6 +1,15 @@
 {
-  "updated": "2026-08-13",
+  "updated": "2026-08-14",
   "entries": [
+    {
+      "date": "2026-08-14",
+      "title": "v1.6.18 • MCU Kronolojisi Düzeltildi",
+      "items": [
+        "Kronolojik film sırası Marvel'ın 2026 resmî MCU zaman çizelgesine göre güncellendi.",
+        "The Marvels ve yanlış konumlanan diğer MCU filmleri doğru kronolojik yerlere taşındı.",
+        "Yama Notları ve site sürüm bilgisi v1.6.18 olarak güncellendi."
+      ]
+    },
     {
       "date": "2026-08-13",
       "title": "Admin İstatistik Kartı Sabitlendi",
