@@ -128,6 +128,16 @@
     document.getElementById('noneBtn')?.remove();
   }
 
+  function removeLegacyBackupUI(){
+    document.getElementById('exportBtn')?.remove();
+    document.getElementById('importBtn')?.remove();
+    document.getElementById('importFile')?.remove();
+    const exportSettings=document.getElementById('settingsExportBtn');
+    const importSettings=document.getElementById('settingsImportBtn');
+    const card=exportSettings?.closest('.settings-card')||importSettings?.closest('.settings-card');
+    card?.remove();
+  }
+
   function ensureReleaseNotes(){
     const existing=document.getElementById('mcuReleaseNotesBtn');
     if(existing){existing.textContent='📋 Yama Notları';return}
@@ -149,11 +159,12 @@
   }
 
   function install(){
-    protectPrimaryRegistration();recoverPrimaryAdmin();removeBulkWatchActions();ensureCloudAuth();ensureCloudAdmin();ensureSelfDelete();
+    protectPrimaryRegistration();recoverPrimaryAdmin();removeBulkWatchActions();removeLegacyBackupUI();ensureCloudAuth();ensureCloudAdmin();ensureSelfDelete();
     setTimeout(removeBulkWatchActions,100);setTimeout(removeBulkWatchActions,700);
+    setTimeout(removeLegacyBackupUI,100);setTimeout(removeLegacyBackupUI,700);setTimeout(removeLegacyBackupUI,1800);
     setTimeout(ensureCloudAuth,250);setTimeout(ensureCloudAdmin,350);setTimeout(ensureSelfDelete,250);setTimeout(ensureSelfDelete,1000);setTimeout(ensureReleaseNotes,600);setTimeout(ensureReleaseNotes,1800);
-    document.addEventListener('click',()=>setTimeout(()=>{removeBulkWatchActions();ensureSelfDelete();ensureReleaseNotes();ensureCloudAuth();ensureCloudAdmin()},0),true);
-    window.addEventListener('focus',()=>{removeBulkWatchActions();ensureSelfDelete();ensureReleaseNotes();ensureCloudAuth();ensureCloudAdmin()},{passive:true});
+    document.addEventListener('click',()=>setTimeout(()=>{removeBulkWatchActions();removeLegacyBackupUI();ensureSelfDelete();ensureReleaseNotes();ensureCloudAuth();ensureCloudAdmin()},0),true);
+    window.addEventListener('focus',()=>{removeBulkWatchActions();removeLegacyBackupUI();ensureSelfDelete();ensureReleaseNotes();ensureCloudAuth();ensureCloudAdmin()},{passive:true});
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
