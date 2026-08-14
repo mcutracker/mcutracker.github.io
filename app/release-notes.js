@@ -2,7 +2,7 @@
   'use strict';
   if(window.__MCU_RELEASE_NOTES_LOADED__)return;
   window.__MCU_RELEASE_NOTES_LOADED__=true;
-  const VERSION='1.6.17';
+  const VERSION='1.6.18';
   const CHANGELOG_URL='https://mcutracker.github.io/app/changelog.json';
   const SESSION_KEY='MCU_TRACKER_SESSION_V1';
   const SEEN_KEY='MCU_TRACKER_CHANGELOG_SEEN_VERSION';
@@ -20,7 +20,7 @@
       cached=await r.json();
       return cached;
     }catch{
-      return {latest:VERSION,entries:[{version:VERSION,date:'2026-08-13',title:'Yama Notları',items:['Yama notları şu anda çevrimdışı. İnternet bağlantısı geldiğinde bu sekmeyi yeniden açabilirsin.']}]} ;
+      return {latest:VERSION,entries:[{version:VERSION,date:'2026-08-14',title:'Yama Notları',items:['Yama notları şu anda çevrimdışı. İnternet bağlantısı geldiğinde bu sekmeyi yeniden açabilirsin.']}]} ;
     }
   }
 
