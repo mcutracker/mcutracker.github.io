@@ -46,6 +46,16 @@
     {t:'Spider-Man: Brand New Day',w:'Spider-Man: Brand New Day'}
   ];
 
+  function ensureDoomsdayOrder(){
+    if(window.__MCU_DOOMSDAY_ORDER_1618__||document.getElementById('mcuDoomsdayOrder1618Loader'))return;
+    const s=document.createElement('script');
+    s.id='mcuDoomsdayOrder1618Loader';
+    s.src='https://mcutracker.github.io/app/doomsday-order-1.6.18.js?t='+Date.now();
+    s.async=false;
+    s.onerror=()=>s.remove();
+    document.head.appendChild(s);
+  }
+
   function applyChronology(){
     try{
       if(typeof CHRONOLOGICAL!=='undefined'&&Array.isArray(CHRONOLOGICAL)){
@@ -76,10 +86,10 @@
     }catch{}
   }
 
-  function apply(){applyChronology();patchTelemetry();patchVersionUI();}
+  function apply(){applyChronology();patchTelemetry();patchVersionUI();ensureDoomsdayOrder();}
   apply();
   setTimeout(apply,250);
   setTimeout(apply,1000);
-  document.addEventListener('click',()=>setTimeout(()=>{applyChronology();patchVersionUI()},0),true);
-  window.addEventListener('focus',()=>{applyChronology();patchVersionUI()},{passive:true});
+  document.addEventListener('click',()=>setTimeout(()=>{applyChronology();patchVersionUI();ensureDoomsdayOrder()},0),true);
+  window.addEventListener('focus',()=>{applyChronology();patchVersionUI();ensureDoomsdayOrder()},{passive:true});
 })();
