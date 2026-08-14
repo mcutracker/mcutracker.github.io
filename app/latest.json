@@ -1,6 +1,6 @@
 {
-  "version": "1.6.17",
+  "version": "1.6.18",
   "url": "https://raw.githubusercontent.com/mcutracker/mcutracker.github.io/main/app/index.html",
   "sha256": "f9723819a2fd269f91c9191ca189c6fa7ef15021f6acdae92d9e6c017131a40d",
-  "notes": "IMDb puan yükleme düzeltmesine ek olarak kişisel film puanlama alanı 10 yıldızlı sisteme dönüştürüldü. Seçilen yıldıza kadar tüm yıldızlar işaretlenir."
+  "notes": "Kronolojik film sırası Marvel'ın 2026 resmî MCU zaman çizelgesine göre düzeltildi. The Marvels ve diğer yanlış konumlanan filmler güncel kronolojiye taşındı."
 }
