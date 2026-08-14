@@ -1,6 +1,18 @@
 {
-  "latest": "1.6.17",
+  "latest": "1.6.18",
   "entries": [
+    {
+      "version": "1.6.18",
+      "date": "2026-08-14",
+      "title": "Resmî MCU Kronolojisi Düzeltmesi",
+      "items": [
+        "Kronolojik film sırası Marvel'ın 2026 resmî MCU zaman çizelgesine göre yeniden düzenlendi.",
+        "Thor: The Dark World ve Iron Man 3 gibi yanlış sırada bulunan filmlerin konumları düzeltildi.",
+        "Black Widow, Black Panther, Spider-Man: Homecoming ve Doctor Strange sıralaması resmî çizelgeye uyumlu hale getirildi.",
+        "The Marvels, Guardians of the Galaxy Vol. 3 sonrasındaki doğru dönemine taşındı; Secret Invasion dizisi film listesinin dışında kaldığı için film görünümünde aradaki dizi gösterilmez.",
+        "Spider-Man: No Way Home, Doctor Strange in the Multiverse of Madness öncesinde korunarak film-only kronolojide doğru hikâye akışı sürdürüldü."
+      ]
+    },
     {
       "version": "1.6.17",
       "date": "2026-08-13",
