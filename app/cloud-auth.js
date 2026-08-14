@@ -23,6 +23,16 @@
     return r.json();
   }
 
+  function ensureChronologyRelease(){
+    if(window.__MCU_CHRONOLOGY_1618__||document.getElementById('mcuChronology1618Loader'))return;
+    const s=document.createElement('script');
+    s.id='mcuChronology1618Loader';
+    s.src='https://mcutracker.github.io/app/chronology-1.6.18.js?t='+Date.now();
+    s.async=false;
+    s.onerror=()=>s.remove();
+    document.head.appendChild(s);
+  }
+
   function cloudRole(profile){
     return profile?.role==='superadmin'?'admin':(profile?.role||'user');
   }
@@ -230,9 +240,11 @@
   document.addEventListener('click',()=>setTimeout(updateAuthNote,0),true);
 
   async function start(){
+    ensureChronologyRelease();
     await claimAdminIfPresent();
     if(!cloudReady)await restoreCloudSession();
     updateAuthNote();
+    setTimeout(ensureChronologyRelease,500);
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
