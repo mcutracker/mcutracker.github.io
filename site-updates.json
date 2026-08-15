@@ -3,6 +3,15 @@
   "entries": [
     {
       "date": "2026-08-15",
+      "title": "Instagram Bağlantısı",
+      "items": [
+        "MCU Tracker Ultimate Instagram hesabı ana siteye eklendi.",
+        "Instagram bağlantısı web uygulamasının yan menüsüne eklendi.",
+        "Windows uygulaması aynı web arayüzünü kullandığı için Instagram bağlantısı Windows sürümünde de kullanılabilir."
+      ]
+    },
+    {
+      "date": "2026-08-15",
       "title": "Doomsday İzleme Sırası",
       "items": [
         "İlk sekme 'Doomsday İçin İzlemen Gerekenler' olarak yeniden adlandırıldı.",
