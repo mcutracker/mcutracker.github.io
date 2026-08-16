@@ -20,7 +20,14 @@
     'Eyes of Wakanda':[114],
     'Marvel Zombies':[125],
     'Your Friendly Neighborhood Spider-Man':[280,null],
-    'Wonder Man':[250]
+    'Wonder Man':[250],
+    'I Am Groot':[20,20],
+    'Daredevil':[700,700,655],
+    'Jessica Jones':[666,662,648],
+    'Luke Cage':[703,761],
+    'Iron Fist':[712,516],
+    'The Defenders':[393],
+    'The Punisher':[676,681]
   };
   const APPROX={
     'Your Friendly Neighborhood Spider-Man':{1:true}
