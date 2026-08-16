@@ -8,6 +8,7 @@
         "Tam MCU Kronolojisi düğmesinin kısa Doomsday listesince yeniden ezilmesine neden olabilecek görünüm çakışması giderildi.",
         "Black Widow afiş anahtarı tüm film görünümlerinde doğru Wikipedia sayfasına yönlendirildi ve mevcut kartlarda afiş yeniden yüklenir hale getirildi.",
         "Yama Notları görünümü arama veya başka bir yeniden çizim tetiklendiğinde boş listeye dönmemesi için güçlendirildi.",
+        "Alt filtre satırındaki Favoriler düğmesinin filtreleme yapmaması düzeltildi; artık yalnızca favori içerikleri gösterir.",
         "Düzeltmeler v1.6.18 sürüm numarası değiştirilmeden yayınlandı."
       ]
     },
