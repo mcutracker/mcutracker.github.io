@@ -37,9 +37,28 @@
       });
     }catch{}
   }
+  function patchFavoriteFilters(){
+    try{
+      document.querySelectorAll('#filterBar button[data-filter]').forEach(btn=>{
+        if(btn.dataset.mcuFilter1618==='1')return;
+        btn.dataset.mcuFilter1618='1';
+        btn.onclick=()=>{
+          try{
+            const mode=btn.dataset.filter||'all';
+            const isFav=mode==='favorites';
+            if(typeof favoriteOnly!=='undefined')favoriteOnly=isFav;
+            if(typeof filter!=='undefined')filter=isFav?'all':mode;
+            document.querySelectorAll('#filterBar button[data-filter]').forEach(x=>x.classList.toggle('active',x===btn));
+            document.getElementById('favFilter')?.classList.toggle('active',isFav);
+            if(typeof renderCurrent==='function')renderCurrent();
+          }catch{}
+        };
+      });
+    }catch{}
+  }
   function applyChronology(){try{if(typeof CHRONOLOGICAL!=='undefined'&&Array.isArray(CHRONOLOGICAL)){CHRONOLOGICAL.splice(0,CHRONOLOGICAL.length,...corrected.map(x=>({...x})));if(typeof DATA!=='undefined'&&DATA)DATA.chronological=CHRONOLOGICAL;if(typeof currentCategory!=='undefined'&&currentCategory==='chronological'&&typeof renderCurrent==='function')renderCurrent(false)}}catch{}}
   function patchVersionUI(){for(const sel of ['.version-pill','[data-current-version]','.profile-rank','.badge'])document.querySelectorAll(sel).forEach(el=>{const text=el.textContent||'';if(/v1\.5\.0|v1\.6\.17/.test(text))el.textContent=text.replace(/v1\.5\.0|v1\.6\.17/g,'v'+VERSION)})}
   function patchTelemetry(){try{if(typeof sendTelemetry==='function')sendTelemetry=function(event){try{fetch(TELEMETRY_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event,version:VERSION}),keepalive:true}).catch(()=>{})}catch{}}}catch{}}
-  function apply(){applyChronology();patchBlackWidowEntries();patchTelemetry();patchVersionUI();load('mcuDoomsdayOrder1618Loader','doomsday-order-1.6.18.js','__MCU_DOOMSDAY_ORDER_1618__');load('mcuFullChronology1618Loader','full-mcu-chronology-1.6.18.js','__MCU_FULL_CHRONOLOGY_1618__');load('mcuInstagram1618Loader','instagram-link.js','__MCU_INSTAGRAM_LINK_1618__');load('mcuReleaseNotesFix1618Loader','release-notes-fix-1.6.18.js','__MCU_RELEASE_NOTES_FIX_1618__')}
+  function apply(){applyChronology();patchBlackWidowEntries();patchFavoriteFilters();patchTelemetry();patchVersionUI();load('mcuDoomsdayOrder1618Loader','doomsday-order-1.6.18.js','__MCU_DOOMSDAY_ORDER_1618__');load('mcuFullChronology1618Loader','full-mcu-chronology-1.6.18.js','__MCU_FULL_CHRONOLOGY_1618__');load('mcuInstagram1618Loader','instagram-link.js','__MCU_INSTAGRAM_LINK_1618__');load('mcuReleaseNotesFix1618Loader','release-notes-fix-1.6.18.js','__MCU_RELEASE_NOTES_FIX_1618__')}
   apply();setTimeout(apply,250);setTimeout(()=>{apply();fixBlackWidowPoster()},1000);setTimeout(fixBlackWidowPoster,2500);document.addEventListener('click',()=>setTimeout(()=>{apply();fixBlackWidowPoster()},0),true);window.addEventListener('focus',()=>{apply();fixBlackWidowPoster()},{passive:true});
 })();
