@@ -3,6 +3,16 @@
   "entries": [
     {
       "date": "2026-08-17",
+      "title": "Tam MCU Seçeneği Sadeleştirildi",
+      "items": [
+        "'Ben Her Şeye Hâkim Olmak İstiyorum / Tam MCU Kronolojisi' seçeneği, Doomsday’e Tam Hazırlık görünümüyle gereksiz biçimde örtüştüğü için 'Bunu Listele' menüsünden kaldırıldı.",
+        "İlk sekmedeki liste menüsünde artık Doomsday Listesi, Doomsday’e Tam Hazırlık, Kronolojiye Göre Filmler ve Vizyona Göre Filmler seçenekleri bulunuyor.",
+        "Diziler sekmesindeki sezon takibi, süreler ve çift yönlü işaretleme sistemi korunmaya devam ediyor.",
+        "Değişiklik v1.6.18 sürüm numarası değiştirilmeden web ve Windows ortak arayüzüne yayınlandı."
+      ]
+    },
+    {
+      "date": "2026-08-17",
       "title": "Doomsday’e Tam Hazırlık Listesi",
       "items": [
         "İlk sekmedeki 'Bunu Listele' menüsüne 'Doomsday’e Tam Hazırlık — MCU + X-Men + Spider-Verse' seçeneği eklendi.",
