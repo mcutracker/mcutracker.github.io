@@ -3,6 +3,18 @@
   "entries": [
     {
       "date": "2026-08-16",
+      "title": "Listeleme Menüsü ve Dizi Senkronizasyonu",
+      "items": [
+        "İlk Doomsday sekmesine Diziler ekranındaki sezon açılır yapısına benzer 'Bunu Listele' menüsü eklendi.",
+        "Bu menüden Doomsday Listesi, Tam MCU Kronolojisi, Kronolojiye Göre Filmler ve Vizyona Göre Filmler görünümlerine geçilebilir.",
+        "Tam MCU kronolojisindeki Loki, What If...?, Daredevil, Jessica Jones, Luke Cage, Iron Fist, The Punisher ve diğer dizi sezonları Diziler sekmesindeki ilgili sezonlarla çift yönlü senkronize edildi.",
+        "Tam kronolojide bir sezon tamamlandığında Diziler sekmesinde de tamamlanır; Diziler sekmesinden kaldırıldığında kronoloji kartındaki işaret de kaldırılır.",
+        "I Am Groot, Daredevil, Jessica Jones, Luke Cage, Iron Fist, The Defenders ve The Punisher sezonları Diziler sekmesine eklenerek tam kronolojiyle ortak takip sistemine bağlandı.",
+        "Güncelleme v1.6.18 sürüm numarası değiştirilmeden web ve Windows ortak arayüzüne yayınlandı."
+      ]
+    },
+    {
+      "date": "2026-08-16",
       "title": "Dizi İzleme Süreleri Eklendi",
       "items": [
         "Diziler sekmesinde her sezonun toplam izleme süresi gösterilir hale getirildi.",
