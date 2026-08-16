@@ -3,6 +3,17 @@
   "entries": [
     {
       "date": "2026-08-16",
+      "title": "Dizi İzleme Süreleri Eklendi",
+      "items": [
+        "Diziler sekmesinde her sezonun toplam izleme süresi gösterilir hale getirildi.",
+        "Birden fazla sezonu olan dizilerde sezon süreleri ayrı ayrı, dizi kartında ise bilinen toplam süre gösteriliyor.",
+        "İstatistikler ekranına izlenen dizi süresi ve bilinen toplam dizi süresi eklendi.",
+        "Henüz yayınlanmamış sezonlarda süre uydurulmaz; bölüm süreleri açıklanana kadar 'Süre henüz açıklanmadı' gösterilir.",
+        "Güncelleme v1.6.18 sürüm numarası değiştirilmeden web ve Windows ortak arayüzüne yayınlandı."
+      ]
+    },
+    {
+      "date": "2026-08-16",
       "title": "v1.6.18 Bakım Denetimi",
       "items": [
         "Tam MCU Kronolojisi düğmesinin kısa Doomsday listesince yeniden ezilmesine neden olabilecek görünüm çakışması giderildi.",
