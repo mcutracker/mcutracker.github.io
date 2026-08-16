@@ -1,6 +1,15 @@
 {
-  "updated": "2026-08-15",
+  "updated": "2026-08-16",
   "entries": [
+    {
+      "date": "2026-08-16",
+      "title": "Yama Notları Sekmesi Düzeltildi",
+      "items": [
+        "Yan menüdeki Yama Notları sekmesinin tıklandığında hemen önceki ekrana dönmesine neden olan kategori çakışması giderildi.",
+        "Yama Notları artık kendi görünüm durumunu koruyarak doğrudan açılır ve güncel changelog verisini yükler.",
+        "Düzeltme v1.6.18 sürüm numarası değiştirilmeden yayınlandı."
+      ]
+    },
     {
       "date": "2026-08-15",
       "title": "Instagram Bağlantısı",
