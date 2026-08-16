@@ -3,6 +3,15 @@
   "entries": [
     {
       "date": "2026-08-16",
+      "title": "Yan Menü Sadeleştirildi",
+      "items": [
+        "MCU Tam Liste — Filmler, Kronolojik Sıra — Filmler ve Vizyon Sırası — Filmler düğmeleri yan menüden kaldırıldı.",
+        "Bu üç görünüm ilk sekmedeki 'Bunu Listele' menüsünden erişilebilir olmaya devam ediyor.",
+        "Güncelleme v1.6.18 sürüm numarası değiştirilmeden web ve Windows ortak arayüzüne yayınlandı."
+      ]
+    },
+    {
+      "date": "2026-08-16",
       "title": "Listeye Göre İlerleme Sayaçları",
       "items": [
         "Üstteki Tamamlanan, Kalan, Filmler ve Dizi Sezonları sayaçları artık açık olan listeye göre hesaplanıyor.",
