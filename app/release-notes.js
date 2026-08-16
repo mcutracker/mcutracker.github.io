@@ -10,7 +10,11 @@
   let cachedAdminStats='';
 
   const publicText=v=>String(v??'').replace(/\bovztur\b/gi,'Ana Admin');
-  const esc=v=>publicText(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const esc=v=>publicText(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[c]));
+
+  function setUpdatesCategory(){
+    try{if(typeof currentCategory!=='undefined')currentCategory='updates';}catch{}
+  }
 
   async function loadNotes(){
     if(cached)return cached;
@@ -55,7 +59,7 @@
 
   function ensureButton(){
     let btn=document.getElementById('mcuReleaseNotesBtn');
-    if(btn){btn.textContent='📋 Yama Notları';return btn;}
+    if(btn){btn.textContent='📋 Yama Notları';btn.dataset.cat='updates';return btn;}
     const side=document.getElementById('sideMenu');
     if(!side)return null;
     btn=document.createElement('button');
@@ -72,6 +76,7 @@
     btn.addEventListener('click',e=>{
       e.preventDefault();
       e.stopPropagation();
+      setUpdatesCategory();
       renderNotes(true);
       const menu=document.getElementById('sideMenu'),overlay=document.getElementById('menuOverlay');
       if(menu?.classList.contains('open')){menu.classList.remove('open');overlay?.classList.remove('open')}
@@ -80,9 +85,11 @@
   }
 
   async function renderNotes(markSeen=false){
+    setUpdatesCategory();
     const host=document.getElementById('movieList');
     if(!host)return;
     const data=await loadNotes();
+    setUpdatesCategory();
     const entries=Array.isArray(data?.entries)?data.entries:[];
     document.querySelectorAll('.menu-category').forEach(b=>b.classList.toggle('active',b.id==='mcuReleaseNotesBtn'));
     const subtitle=document.getElementById('subtitle');if(subtitle)subtitle.textContent='YAMA NOTLARI';
