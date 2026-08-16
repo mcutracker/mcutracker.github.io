@@ -14,19 +14,41 @@ const wikiAliases={
   'The Punisher S1':'The Punisher (TV series)','The Punisher S2':'The Punisher (TV series)',
   'Loki S1':'Loki (TV series)','Loki S2':'Loki (TV series)',
   'What If...? S1':'What If...? (TV series)','What If...? S2':'What If...? (TV series)','What If...? S3':'What If...? (TV series)',
-  'Daredevil: Born Again S1':'Daredevil: Born Again','Daredevil: Born Again S2':'Daredevil: Born Again'
+  'Daredevil: Born Again S1':'Daredevil: Born Again','Daredevil: Born Again S2':'Daredevil: Born Again',
+  'X-Men':'X-Men (film)','X2':'X2 (film)','X-Men: The Last Stand':'X-Men: The Last Stand','X-Men: First Class':'X-Men: First Class','X-Men: Days of Future Past':'X-Men: Days of Future Past',
+  'Spider-Man':'Spider-Man (2002 film)','Spider-Man 2':'Spider-Man 2','Spider-Man 3':'Spider-Man 3','The Amazing Spider-Man':'The Amazing Spider-Man (film)','The Amazing Spider-Man 2':'The Amazing Spider-Man 2'
 };
 
 const full=[
 'Eyes of Wakanda','Captain America: The First Avenger','Marvel Studios One Shot: Agent Carter','Captain Marvel','Iron Man','Iron Man 2','The Incredible Hulk','Marvel Studios One Shot: A Funny Thing Happened on the Way to Thor’s Hammer','Thor','Marvel Studios One Shot: The Consultant','The Avengers','Marvel Studios One Shot: Item 47','Thor: The Dark World','Iron Man 3','Marvel Studios One Shot: All Hail the King','Captain America: The Winter Soldier','Guardians of the Galaxy','Guardians of the Galaxy Vol. 2','I Am Groot S1','I Am Groot S2','Daredevil S1','Jessica Jones S1','Avengers: Age of Ultron','Ant-Man','Daredevil S2','Luke Cage S1','Iron Fist S1','The Defenders','Captain America: Civil War','Black Widow','Black Panther','Spider-Man: Homecoming','The Punisher S1','Doctor Strange','Jessica Jones S2','Luke Cage S2','Iron Fist S2','Daredevil S3','Thor: Ragnarok','The Punisher S2','Jessica Jones S3','Ant-Man and the Wasp','Avengers: Infinity War','Avengers: Endgame','Loki S1','What If...? S1','Marvel Zombies','WandaVision','Shang-Chi and the Legend of the Ten Rings','The Falcon and the Winter Soldier','Spider-Man: Far From Home','Eternals','Spider-Man: No Way Home','Doctor Strange in the Multiverse of Madness','Hawkeye','Moon Knight','Black Panther: Wakanda Forever','Echo','She-Hulk: Attorney at Law','Ms. Marvel','Thor: Love and Thunder','Ironheart','Werewolf By Night','The Guardians of the Galaxy Holiday Special','Ant-Man and the Wasp: Quantumania','Guardians of the Galaxy Vol. 3','Secret Invasion','The Marvels','Loki S2','What If...? S2','Deadpool & Wolverine','Agatha All Along','What If...? S3','Daredevil: Born Again S1','Captain America: Brave New World','Thunderbolts*','The Fantastic Four: First Steps','Wonder Man','Daredevil: Born Again S2','The Punisher: One Last Kill'
 ].map(t=>({t,w:wikiAliases[t]||t}));
 
+const preparedExtras=[
+  'X-Men','X2','X-Men: The Last Stand','X-Men: First Class','X-Men: Days of Future Past',
+  'Spider-Man','Spider-Man 2','Spider-Man 3','The Amazing Spider-Man','The Amazing Spider-Man 2',
+  'Deadpool & Wolverine'
+].map(t=>({t,w:wikiAliases[t]||t}));
+
 let mode='doomsday';
 window.__MCU_FULL_MODE_1618__=false;
 window.__MCU_LIST_MODE_1618__='doomsday';
 
+function ensureExternalMeta(){
+  try{
+    if(typeof PHASES!=='undefined')Object.assign(PHASES,{
+      'X-Men':'X-Men Evreni','X2':'X-Men Evreni','X-Men: The Last Stand':'X-Men Evreni','X-Men: First Class':'X-Men Evreni','X-Men: Days of Future Past':'X-Men Evreni',
+      'Spider-Man':'Tobey Spider-Verse','Spider-Man 2':'Tobey Spider-Verse','Spider-Man 3':'Tobey Spider-Verse',
+      'The Amazing Spider-Man':'Andrew Spider-Verse','The Amazing Spider-Man 2':'Andrew Spider-Verse'
+    });
+    if(typeof DURATIONS!=='undefined')Object.assign(DURATIONS,{
+      'X-Men':104,'X2':134,'X-Men: The Last Stand':104,'X-Men: First Class':132,'X-Men: Days of Future Past':132,
+      'Spider-Man':121,'Spider-Man 2':127,'Spider-Man 3':139,'The Amazing Spider-Man':136,'The Amazing Spider-Man 2':142
+    });
+  }catch{}
+}
+
 function setMode(v){
-  mode=['doomsday','full','chronological','release'].includes(v)?v:'doomsday';
+  mode=['doomsday','prepared','full','chronological','release'].includes(v)?v:'doomsday';
   window.__MCU_FULL_MODE_1618__=mode!=='doomsday';
   window.__MCU_LIST_MODE_1618__=mode;
 }
@@ -38,14 +60,19 @@ function rememberBase(){
 }
 
 function modeLabel(){
-  return mode==='full'?'🌌 Tam MCU Kronolojisi':mode==='chronological'?'⏳ Kronolojiye Göre — Filmler':mode==='release'?'📅 Vizyona Göre — Filmler':'⚡ Doomsday Listesi';
+  return mode==='prepared'?'🔥 Doomsday’e Tam Hazırlık':mode==='full'?'🌌 Tam MCU Kronolojisi':mode==='chronological'?'⏳ Kronolojiye Göre — Filmler':mode==='release'?'📅 Vizyona Göre — Filmler':'⚡ Doomsday Listesi';
 }
 
 function titleForMode(){
-  return mode==='full'?'TAM MCU KRONOLOJİSİ — HER ŞEYE HÂKİM OL':mode==='chronological'?'KRONOLOJİYE GÖRE — TÜM FİLMLER':mode==='release'?'VİZYONA GÖRE — TÜM FİLMLER':'DOOMSDAY İÇİN İZLEMEN GEREKENLER';
+  return mode==='prepared'?"DOOMSDAY’E TAM HAZIRLIK — MCU + X-MEN + SPIDER-VERSE":mode==='full'?'TAM MCU KRONOLOJİSİ — HER ŞEYE HÂKİM OL':mode==='chronological'?'KRONOLOJİYE GÖRE — TÜM FİLMLER':mode==='release'?'VİZYONA GÖRE — TÜM FİLMLER':'DOOMSDAY İÇİN İZLEMEN GEREKENLER';
 }
 
 function sourceForMode(){
+  if(mode==='prepared'){
+    const base=window.__MCU_DOOMSDAY_BASE_1618__||[];
+    const seen=new Set();
+    return [...preparedExtras,...base].filter(x=>x?.t&&!seen.has(x.t)&&seen.add(x.t));
+  }
   if(mode==='full')return full;
   if(mode==='chronological'&&typeof CHRONOLOGICAL!=='undefined')return CHRONOLOGICAL;
   if(mode==='release'&&typeof RELEASE!=='undefined')return RELEASE;
@@ -55,7 +82,7 @@ function sourceForMode(){
 function applyMode(render=true){
   try{
     if(typeof currentCategory==='undefined'||currentCategory!=='doomsday')return;
-    rememberBase();
+    rememberBase();ensureExternalMeta();
     const src=sourceForMode();
     if(typeof DOOMSDAY_DATA!=='undefined'&&Array.isArray(DOOMSDAY_DATA)&&Array.isArray(src)){
       DOOMSDAY_DATA.splice(0,DOOMSDAY_DATA.length,...src.map(x=>({...x})));
@@ -108,7 +135,7 @@ function addChooser(){
     list.parentNode.insertBefore(wrap,list);
   }
   const wasOpen=wrap.open;
-  wrap.innerHTML=`<summary><span>📋 Bunu Listele</span><span class="mcu-list-current">${modeLabel()} ▾</span></summary><div class="mcu-list-options"><button type="button" data-mcu-list-mode="doomsday" class="${mode==='doomsday'?'active':'secondary'}">⚡ Doomsday Listesi</button><button type="button" data-mcu-list-mode="full" class="${mode==='full'?'active':'secondary'}">🌌 Ben Her Şeye Hâkim Olmak İstiyorum</button><button type="button" data-mcu-list-mode="chronological" class="${mode==='chronological'?'active':'secondary'}">⏳ Kronolojiye Göre — Filmler</button><button type="button" data-mcu-list-mode="release" class="${mode==='release'?'active':'secondary'}">📅 Vizyona Göre — Filmler</button></div>`;
+  wrap.innerHTML=`<summary><span>📋 Bunu Listele</span><span class="mcu-list-current">${modeLabel()} ▾</span></summary><div class="mcu-list-options"><button type="button" data-mcu-list-mode="doomsday" class="${mode==='doomsday'?'active':'secondary'}">⚡ Doomsday Listesi</button><button type="button" data-mcu-list-mode="prepared" class="${mode==='prepared'?'active':'secondary'}">🔥 Doomsday’e Tam Hazırlık — MCU + X-Men + Spider-Verse</button><button type="button" data-mcu-list-mode="full" class="${mode==='full'?'active':'secondary'}">🌌 Ben Her Şeye Hâkim Olmak İstiyorum</button><button type="button" data-mcu-list-mode="chronological" class="${mode==='chronological'?'active':'secondary'}">⏳ Kronolojiye Göre — Filmler</button><button type="button" data-mcu-list-mode="release" class="${mode==='release'?'active':'secondary'}">📅 Vizyona Göre — Filmler</button></div>`;
   wrap.open=wasOpen;
   wrap.querySelectorAll('[data-mcu-list-mode]').forEach(btn=>btn.onclick=e=>{
     e.preventDefault();
@@ -119,6 +146,7 @@ function addChooser(){
 }
 
 function watch(){
+  ensureExternalMeta();
   if(typeof currentCategory!=='undefined'&&currentCategory==='doomsday'){
     rememberBase();
     addChooser();
