@@ -1,6 +1,18 @@
 {
-  "updated": "2026-08-16",
+  "updated": "2026-08-17",
   "entries": [
+    {
+      "date": "2026-08-17",
+      "title": "Doomsday’e Tam Hazırlık Listesi",
+      "items": [
+        "İlk sekmedeki 'Bunu Listele' menüsüne 'Doomsday’e Tam Hazırlık — MCU + X-Men + Spider-Verse' seçeneği eklendi.",
+        "Hazırlık listesine X-Men, X2, X-Men: The Last Stand, X-Men: First Class ve X-Men: Days of Future Past eklendi.",
+        "Tobey Maguire Spider-Man üçlemesi ile Andrew Garfield'ın The Amazing Spider-Man ve The Amazing Spider-Man 2 filmleri önerilen multiverse hazırlığı olarak listeye eklendi.",
+        "Deadpool & Wolverine, X-Men/multiverse bağlantısı nedeniyle tam hazırlık listesine dahil edildi.",
+        "Ana Doomsday listesi değiştirilmedi; yeni seçenek isteğe bağlı genişletilmiş hazırlık görünümü olarak çalışır.",
+        "Güncelleme v1.6.18 sürüm numarası değiştirilmeden web ve Windows ortak arayüzüne yayınlandı."
+      ]
+    },
     {
       "date": "2026-08-16",
       "title": "Yan Menü Sadeleştirildi",
