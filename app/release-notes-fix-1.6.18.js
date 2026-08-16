@@ -8,6 +8,8 @@
   const SEEN_KEY='MCU_TRACKER_CHANGELOG_SEEN_VERSION';
   const publicText=v=>String(v??'').replace(/\bovztur\b/gi,'Ana Admin');
   const esc=v=>publicText(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  let cached=null;
+  let loading=null;
 
   function setUpdatesCategory(){
     try{if(typeof currentCategory!=='undefined')currentCategory='updates';}catch{}
@@ -38,6 +40,22 @@
     return btn;
   }
 
+  async function loadNotes(){
+    if(cached)return cached;
+    if(loading)return loading;
+    loading=(async()=>{
+      try{
+        const r=await fetch(CHANGELOG_URL+'?v='+encodeURIComponent(VERSION)+'&t='+Date.now(),{cache:'no-store'});
+        if(!r.ok)throw new Error('HTTP '+r.status);
+        cached=await r.json();
+      }catch{
+        cached={latest:VERSION,entries:[{version:VERSION,date:'2026-08-16',title:'Yama Notları',items:['Yama notları şu anda yüklenemedi. İnternet bağlantısını kontrol edip sekmeyi yeniden aç.']}]};
+      }
+      return cached;
+    })().finally(()=>{loading=null});
+    return loading;
+  }
+
   async function renderNotes(markSeen=true){
     setUpdatesCategory();
     const host=document.getElementById('movieList');
@@ -48,20 +66,29 @@
     document.getElementById('loadMore')?.classList.add('hidden');
     host.innerHTML='<section class="panel"><p class="meta">Yama notları yükleniyor…</p></section>';
 
-    let data;
-    try{
-      const r=await fetch(CHANGELOG_URL+'?v='+encodeURIComponent(VERSION)+'&t='+Date.now(),{cache:'no-store'});
-      if(!r.ok)throw new Error('HTTP '+r.status);
-      data=await r.json();
-    }catch{
-      data={latest:VERSION,entries:[{version:VERSION,date:'2026-08-16',title:'Yama Notları',items:['Yama notları şu anda yüklenemedi. İnternet bağlantısını kontrol edip sekmeyi yeniden aç.']}]};
-    }
-
+    const data=await loadNotes();
+    if(typeof currentCategory!=='undefined'&&currentCategory!=='updates')return;
     setUpdatesCategory();
     const entries=Array.isArray(data?.entries)?data.entries:[];
     const latest=data?.latest||VERSION;
     host.innerHTML=`<section class="profile-hero" style="grid-template-columns:72px 1fr"><div class="profile-avatar">📋</div><div><div class="profile-name">Yama Notları</div><div class="profile-rank">MCU Tracker Ultimate • v${esc(latest)}</div><p class="meta" style="margin:8px 0 0">Uygulamaya eklenen özellikler, düzeltmeler ve bakım notları.</p></div></section>${entries.map((entry,i)=>`<section class="panel" style="border:${i===0?'1px solid rgba(255,255,255,.18)':''}"><div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap"><div><h3 style="margin:0 0 4px">v${esc(entry.version)} • ${esc(entry.title||'Yama')}</h3><div class="meta">${esc(entry.date||'')}</div></div>${i===0?'<span class="role-badge admin">YENİ</span>':''}</div><div style="margin-top:14px;display:grid;gap:9px">${(entry.items||[]).map(x=>`<div style="display:flex;gap:9px;align-items:flex-start"><span>•</span><span>${esc(x)}</span></div>`).join('')}</div></section>`).join('')||'<section class="panel"><p class="meta">Henüz yama notu bulunmuyor.</p></section>'}`;
     if(markSeen){try{localStorage.setItem(SEEN_KEY,latest)}catch{}}
+  }
+
+  window.__MCU_RENDER_RELEASE_NOTES_1618__=renderNotes;
+
+  function patchRenderCurrent(){
+    try{
+      const original=window.renderCurrent;
+      if(typeof original!=='function'||original.__mcuReleaseNotesAware)return;
+      const wrapped=function(...args){
+        try{if(typeof currentCategory!=='undefined'&&currentCategory==='updates'){renderNotes(false);return;}}catch{}
+        return original.apply(this,args);
+      };
+      wrapped.__mcuReleaseNotesAware=true;
+      wrapped.__mcuOriginal=original;
+      window.renderCurrent=wrapped;
+    }catch{}
   }
 
   document.addEventListener('click',e=>{
@@ -76,10 +103,12 @@
 
   function install(){
     ensureButton();
+    patchRenderCurrent();
     if((document.getElementById('subtitle')?.textContent||'').trim()==='YAMA NOTLARI')setUpdatesCategory();
   }
   install();
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});
   setTimeout(install,250);
   setTimeout(install,1200);
+  window.addEventListener('focus',install,{passive:true});
 })();
