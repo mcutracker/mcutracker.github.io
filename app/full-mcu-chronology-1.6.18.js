@@ -23,10 +23,12 @@ const full=[
 
 let mode='doomsday';
 window.__MCU_FULL_MODE_1618__=false;
+window.__MCU_LIST_MODE_1618__='doomsday';
 
 function setMode(v){
   mode=['doomsday','full','chronological','release'].includes(v)?v:'doomsday';
   window.__MCU_FULL_MODE_1618__=mode!=='doomsday';
+  window.__MCU_LIST_MODE_1618__=mode;
 }
 
 function rememberBase(){
