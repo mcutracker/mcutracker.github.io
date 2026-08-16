@@ -4,14 +4,19 @@
     {
       "version": "1.6.18",
       "date": "2026-08-14",
-      "title": "Resmî MCU Kronolojisi Düzeltmesi",
+      "title": "Resmî MCU Kronolojisi ve Takip Güncellemeleri",
       "items": [
         "Kronolojik film sırası Marvel'ın 2026 resmî MCU zaman çizelgesine göre yeniden düzenlendi.",
         "Thor: The Dark World ve Iron Man 3 gibi yanlış sırada bulunan filmlerin konumları düzeltildi.",
         "Black Widow, Black Panther, Spider-Man: Homecoming ve Doctor Strange sıralaması resmî çizelgeye uyumlu hale getirildi.",
         "The Marvels, Guardians of the Galaxy Vol. 3 sonrasındaki doğru dönemine taşındı; Secret Invasion dizisi film listesinin dışında kaldığı için film görünümünde aradaki dizi gösterilmez.",
         "Spider-Man: No Way Home, Doctor Strange in the Multiverse of Madness öncesinde korunarak film-only kronolojide doğru hikâye akışı sürdürüldü.",
-        "İlk sekme 'Doomsday İçin İzlemen Gerekenler' olarak güncellendi ve mevcut Doomsday hazırlık seçkisi resmî MCU kronolojisindeki göreli sıraya dizildi."
+        "İlk sekme 'Doomsday İçin İzlemen Gerekenler' olarak güncellendi ve mevcut Doomsday hazırlık seçkisi resmî MCU kronolojisindeki göreli sıraya dizildi.",
+        "İlk sekmeye 'Bunu Listele' açılır menüsü eklendi; Doomsday, Tam MCU, kronolojik film sırası ve vizyon sırası aynı alandan seçilebilir.",
+        "Tam MCU listesindeki dizi sezonları Diziler sekmesindeki sezonlarla çift yönlü senkronize edildi.",
+        "I Am Groot, Daredevil, Jessica Jones, Luke Cage, Iron Fist, The Defenders ve The Punisher sezonları Diziler sekmesine eklendi.",
+        "Dizi sezon süreleri ve izlenen toplam dizi süresi istatistikleri eklendi.",
+        "Yama Notları, Favoriler filtresi ve Black Widow afişiyle ilgili v1.6.18 bakım düzeltmeleri uygulandı."
       ]
     },
     {
