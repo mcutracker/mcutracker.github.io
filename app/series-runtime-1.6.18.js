@@ -26,7 +26,47 @@
     'Your Friendly Neighborhood Spider-Man':{1:true}
   };
 
+  // Tam MCU kronolojisinde tek kart olarak gösterilen dizi sezonlarının toplam süreleri.
+  const TIMELINE_RUNTIMES={
+    'Eyes of Wakanda':114,
+    'I Am Groot S1':20,
+    'I Am Groot S2':20,
+    'Daredevil S1':700,
+    'Jessica Jones S1':666,
+    'Daredevil S2':700,
+    'Luke Cage S1':703,
+    'Iron Fist S1':712,
+    'The Defenders':393,
+    'The Punisher S1':676,
+    'Jessica Jones S2':662,
+    'Luke Cage S2':761,
+    'Iron Fist S2':516,
+    'Daredevil S3':655,
+    'The Punisher S2':681,
+    'Jessica Jones S3':648,
+    'Loki S1':285,
+    'What If...? S1':283,
+    'Marvel Zombies':125,
+    'WandaVision':322,
+    'The Falcon and the Winter Soldier':302,
+    'Hawkeye':279,
+    'Moon Knight':287,
+    'Echo':203,
+    'She-Hulk: Attorney at Law':285,
+    'Ms. Marvel':271,
+    'Ironheart':289,
+    'Secret Invasion':260,
+    'Loki S2':297,
+    'What If...? S2':271,
+    'Agatha All Along':357,
+    'What If...? S3':235,
+    'Daredevil: Born Again S1':430,
+    'Wonder Man':250,
+    'Daredevil: Born Again S2':389
+  };
+
   window.MCU_SERIES_RUNTIMES_1618=RUNTIMES;
+  window.MCU_TIMELINE_SERIES_RUNTIMES_1618=TIMELINE_RUNTIMES;
 
   const fmt=min=>{
     min=Number(min)||0;
@@ -111,6 +151,25 @@
     }catch{}
   }
 
+  function patchItemMeta(){
+    try{
+      const original=window.itemMeta;
+      if(typeof original!=='function'||original.__mcuSeriesRuntime1618)return;
+      const wrapped=function(item){
+        const base=original.apply(this,arguments);
+        const mins=Number(TIMELINE_RUNTIMES[item?.t]||0);
+        if(!mins)return base;
+        const duration=`⏱ ${fmt(mins)}`;
+        if(String(base).includes('Süre bilgisi yok'))return String(base).replace('Süre bilgisi yok',duration);
+        if(String(base).includes(duration))return base;
+        return `${base} • ${duration}`;
+      };
+      wrapped.__mcuSeriesRuntime1618=true;
+      wrapped.__mcuOriginal=original;
+      window.itemMeta=wrapped;
+    }catch{}
+  }
+
   function wrap(name,after){
     try{
       const original=window[name];
@@ -127,6 +186,7 @@
   }
 
   function install(){
+    patchItemMeta();
     wrap('renderSeries',enhanceSeriesView);
     wrap('renderStats',enhanceStats);
     if(typeof currentCategory!=='undefined'&&currentCategory==='series')setTimeout(enhanceSeriesView,0);
