@@ -6,6 +6,7 @@
       "title": "Dizi İzleme Süreleri Eklendi",
       "items": [
         "Diziler sekmesinde her sezonun toplam izleme süresi gösterilir hale getirildi.",
+        "Tam MCU Kronolojisi içindeki Loki S1/S2, What If...? sezonları, Daredevil, Jessica Jones, Luke Cage, Iron Fist, The Punisher ve diğer dizi sezonlarında da kart üzerinde toplam izleme süresi gösteriliyor.",
         "Birden fazla sezonu olan dizilerde sezon süreleri ayrı ayrı, dizi kartında ise bilinen toplam süre gösteriliyor.",
         "İstatistikler ekranına izlenen dizi süresi ve bilinen toplam dizi süresi eklendi.",
         "Henüz yayınlanmamış sezonlarda süre uydurulmaz; bölüm süreleri açıklanana kadar 'Süre henüz açıklanmadı' gösterilir.",
