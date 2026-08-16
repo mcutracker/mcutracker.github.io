@@ -3,6 +3,16 @@
   "entries": [
     {
       "date": "2026-08-16",
+      "title": "v1.6.18 Bakım Denetimi",
+      "items": [
+        "Tam MCU Kronolojisi düğmesinin kısa Doomsday listesince yeniden ezilmesine neden olabilecek görünüm çakışması giderildi.",
+        "Black Widow afiş anahtarı tüm film görünümlerinde doğru Wikipedia sayfasına yönlendirildi ve mevcut kartlarda afiş yeniden yüklenir hale getirildi.",
+        "Yama Notları görünümü arama veya başka bir yeniden çizim tetiklendiğinde boş listeye dönmemesi için güçlendirildi.",
+        "Düzeltmeler v1.6.18 sürüm numarası değiştirilmeden yayınlandı."
+      ]
+    },
+    {
+      "date": "2026-08-16",
       "title": "Yama Notları Sekmesi Düzeltildi",
       "items": [
         "Yan menüdeki Yama Notları sekmesinin tıklandığında hemen önceki ekrana dönmesine neden olan kategori çakışması giderildi.",
