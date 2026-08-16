@@ -19,7 +19,7 @@
     {t:'Avengers: Age of Ultron',w:'Avengers: Age of Ultron'},
     {t:'Ant-Man',w:'Ant-Man (film)'},
     {t:'Captain America: Civil War',w:'Captain America: Civil War'},
-    {t:'Black Widow',w:'Black Widow (film)'},
+    {t:'Black Widow',w:'Black Widow (2021 film)'},
     {t:'Black Panther',w:'Black Panther (film)'},
     {t:'Spider-Man: Homecoming',w:'Spider-Man: Homecoming'},
     {t:'Doctor Strange',w:'Doctor Strange (2016 film)'},
@@ -56,13 +56,17 @@
 
   function patch(){
     try{
+      const btn=document.querySelector('[data-cat="doomsday"]');
+      if(btn)btn.textContent='⚡ Doomsday İçin İzlemen Gerekenler';
+
+      // Tam MCU modu açıksa bu modül 80 maddelik listeyi kısa Doomsday listesiyle ezmemeli.
+      if(window.__MCU_FULL_MODE_1618__===true)return;
+
       if(typeof DOOMSDAY_DATA!=='undefined'&&Array.isArray(DOOMSDAY_DATA)){
         DOOMSDAY_DATA.splice(0,DOOMSDAY_DATA.length,...ordered.map(x=>({...x})));
         if(typeof DATA!=='undefined'&&DATA)DATA.doomsday=DOOMSDAY_DATA;
       }
       if(typeof TITLES!=='undefined'&&TITLES)TITLES.doomsday='DOOMSDAY İÇİN İZLEMEN GEREKENLER';
-      const btn=document.querySelector('[data-cat="doomsday"]');
-      if(btn)btn.textContent='⚡ Doomsday İçin İzlemen Gerekenler';
       if(typeof currentCategory!=='undefined'&&currentCategory==='doomsday'&&typeof renderCurrent==='function')renderCurrent(false);
     }catch{}
   }
