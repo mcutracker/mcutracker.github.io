@@ -3,6 +3,17 @@
   "entries": [
     {
       "date": "2026-08-16",
+      "title": "Listeye Göre İlerleme Sayaçları",
+      "items": [
+        "Üstteki Tamamlanan, Kalan, Filmler ve Dizi Sezonları sayaçları artık açık olan listeye göre hesaplanıyor.",
+        "Ben Her Şeye Hâkim Olmak İstiyorum görünümünde gerekli dizi sezonu sayısı ayrı gösteriliyor; film ve özel yapımlar diğer sayaçta toplanıyor.",
+        "Doomsday, Tam MCU, Kronolojiye Göre ve Vizyona Göre seçimleri arasında geçiş yapıldığında sayaçlar ve ilerleme çubuğu anında yeni listeye uyarlanıyor.",
+        "Diziler sekmesinde tamamlanan/kalan değerleri sezon sayısına göre hesaplanıyor.",
+        "Güncelleme v1.6.18 sürüm numarası değiştirilmeden web ve Windows ortak arayüzüne yayınlandı."
+      ]
+    },
+    {
+      "date": "2026-08-16",
       "title": "Listeleme Menüsü ve Dizi Senkronizasyonu",
       "items": [
         "İlk Doomsday sekmesine Diziler ekranındaki sezon açılır yapısına benzer 'Bunu Listele' menüsü eklendi.",
