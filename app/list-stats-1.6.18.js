@@ -131,6 +131,55 @@
     setStat('statSeries',seriesCount,'Dizi Sezonları');
   }
 
+  function applyScopedNextWatch(){
+    try{
+      const data=scopedData();
+      if(!data)return false;
+      const titleEl=document.getElementById('nextTitle');
+      const metaEl=document.getElementById('nextMeta');
+      const btn=document.getElementById('nextBtn');
+      if(!titleEl||!metaEl||!btn)return false;
+
+      if(data.kind==='series'){
+        const row=data.items.find(x=>!isOn(seriesKey(x.series[0],x.series[1])));
+        titleEl.textContent=row?row.t:'🎉 Tüm dizi sezonlarını tamamladın!';
+        metaEl.textContent=row?'Sıradaki izlenmemiş sezon':'';
+        btn.disabled=!row;
+        btn.textContent='▶ Şimdi İzle';
+        btn.onclick=()=>{
+          if(!row)return;
+          const cards=[...document.querySelectorAll('.series-card')];
+          const idx=typeof SERIES!=='undefined'&&Array.isArray(SERIES)?SERIES.findIndex(x=>x.t===row.series[0]):-1;
+          const card=idx>=0?cards[idx]:null;
+          if(card){card.open=true;card.scrollIntoView({behavior:'smooth',block:'center'});}
+        };
+        return true;
+      }
+
+      const n=data.items.find(x=>!itemDone(x));
+      titleEl.textContent=n?n.t:'🎉 Bu listedeki tüm içerikleri tamamladın!';
+      metaEl.textContent=n&&typeof itemMeta==='function'?itemMeta(n):'';
+      btn.disabled=!n;
+      btn.textContent='▶ Şimdi İzle';
+      btn.onclick=()=>n&&typeof openDetail==='function'&&openDetail(n);
+      return true;
+    }catch{return false}
+  }
+
+  function patchNextWatch(){
+    try{
+      const original=window.nextWatch;
+      if(typeof original!=='function'||original.__mcuScopedNext1618)return;
+      const wrapped=function(...args){
+        if(applyScopedNextWatch())return;
+        return original.apply(this,args);
+      };
+      wrapped.__mcuScopedNext1618=true;
+      wrapped.__mcuOriginal=original;
+      window.nextWatch=wrapped;
+    }catch{}
+  }
+
   function patchUpdateProgress(){
     try{
       const original=window.updateProgress;
@@ -138,6 +187,7 @@
       const wrapped=function(...args){
         const r=original.apply(this,args);
         applyScopedStats();
+        applyScopedNextWatch();
         return r;
       };
       wrapped.__mcuListStats1618=true;
@@ -147,14 +197,16 @@
   }
 
   function install(){
+    patchNextWatch();
     patchUpdateProgress();
     applyScopedStats();
+    applyScopedNextWatch();
   }
 
   install();
   setTimeout(install,250);
   setTimeout(install,900);
   setTimeout(install,1800);
-  document.addEventListener('click',()=>setTimeout(()=>{patchUpdateProgress();applyScopedStats()},40),true);
-  window.addEventListener('focus',()=>{patchUpdateProgress();applyScopedStats()},{passive:true});
+  document.addEventListener('click',()=>setTimeout(install,40),true);
+  window.addEventListener('focus',install,{passive:true});
 })();
