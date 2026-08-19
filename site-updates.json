@@ -1,6 +1,18 @@
 {
-  "updated": "2026-08-17",
+  "updated": "2026-08-20",
   "entries": [
+    {
+      "date": "2026-08-20",
+      "title": "Şimdi İzle Önerisi Listeye Bağlandı",
+      "items": [
+        "Üstteki 'Şimdi İzle' önerisinin her zaman vizyon sırasını takip etmesi düzeltildi.",
+        "Doomsday Listesi veya Doomsday’e Tam Hazırlık açıkken sıradaki öneri artık doğrudan seçili listenin sırasına göre belirleniyor.",
+        "Bu nedenle Guardians of the Galaxy tamamlandıktan sonra Doomsday görünümünde sıradaki içerik Guardians of the Galaxy Vol. 2 olarak gösterilir; Avengers: Age of Ultron'a atlanmaz.",
+        "Kronolojiye Göre ve Vizyona Göre görünümlerinde de Şimdi İzle önerisi kendi seçili sırasını izler.",
+        "Diziler sekmesinde Şimdi İzle alanı sıradaki tamamlanmamış sezonu gösterir.",
+        "Düzeltme v1.6.18 sürüm numarası değiştirilmeden web ve Windows ortak arayüzüne yayınlandı."
+      ]
+    },
     {
       "date": "2026-08-17",
       "title": "Tam MCU Seçeneği Sadeleştirildi",
