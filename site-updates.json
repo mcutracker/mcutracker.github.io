@@ -3,6 +3,18 @@
   "entries": [
     {
       "date": "2026-08-20",
+      "title": "Yayın Sırasına Göre Tüm MCU",
+      "items": [
+        "'Vizyona Göre — Filmler' seçeneği 'Yayın Sırasına Göre — Tüm MCU' olarak yenilendi.",
+        "Bu görünüm artık yalnızca filmleri değil; MCU filmlerini, dizi sezonlarını, One-Shot yapımlarını ve özel yapımları yayın sırasına göre tek listede gösteriyor.",
+        "Daredevil, Jessica Jones, Luke Cage, Iron Fist, The Defenders, The Punisher, WandaVision, Loki ve diğer dizi sezonları ilgili yayın dönemlerine yerleştirildi.",
+        "Şimdi İzle önerisi bu görünüm açıkken yeni birleşik yayın sırasını takip ediyor.",
+        "Dizi sezonlarının tamamlanma durumu Diziler sekmesiyle senkronize olmaya devam ediyor ve üst sayaçlar seçilen birleşik listeye göre hesaplanıyor.",
+        "Güncelleme v1.6.18 sürüm numarası değiştirilmeden web ve Windows ortak arayüzüne yayınlandı."
+      ]
+    },
+    {
+      "date": "2026-08-20",
       "title": "Şimdi İzle Önerisi Listeye Bağlandı",
       "items": [
         "Üstteki 'Şimdi İzle' önerisinin her zaman vizyon sırasını takip etmesi düzeltildi.",
