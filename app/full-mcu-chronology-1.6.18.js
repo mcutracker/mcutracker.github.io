@@ -4,167 +4,31 @@ if(window.__MCU_FULL_CHRONOLOGY_1618__)return;
 window.__MCU_FULL_CHRONOLOGY_1618__=true;
 
 const wikiAliases={
-  'Black Widow':'Black Widow (2021 film)',
-  'I Am Groot S1':'I Am Groot','I Am Groot S2':'I Am Groot',
-  'Daredevil S1':'Daredevil (TV series)','Daredevil S2':'Daredevil (TV series)','Daredevil S3':'Daredevil (TV series)',
-  'Jessica Jones S1':'Jessica Jones (TV series)','Jessica Jones S2':'Jessica Jones (TV series)','Jessica Jones S3':'Jessica Jones (TV series)',
-  'Luke Cage S1':'Luke Cage (TV series)','Luke Cage S2':'Luke Cage (TV series)',
-  'Iron Fist S1':'Iron Fist (TV series)','Iron Fist S2':'Iron Fist (TV series)',
-  'The Defenders':'The Defenders (miniseries)',
-  'The Punisher S1':'The Punisher (TV series)','The Punisher S2':'The Punisher (TV series)',
-  'Loki S1':'Loki (TV series)','Loki S2':'Loki (TV series)',
-  'What If...? S1':'What If...? (TV series)','What If...? S2':'What If...? (TV series)','What If...? S3':'What If...? (TV series)',
-  'Daredevil: Born Again S1':'Daredevil: Born Again','Daredevil: Born Again S2':'Daredevil: Born Again',
-  'X-Men':'X-Men (film)','X2':'X2 (film)','X-Men: The Last Stand':'X-Men: The Last Stand','X-Men: First Class':'X-Men: First Class','X-Men: Days of Future Past':'X-Men: Days of Future Past',
-  'Spider-Man':'Spider-Man (2002 film)','Spider-Man 2':'Spider-Man 2','Spider-Man 3':'Spider-Man 3','The Amazing Spider-Man':'The Amazing Spider-Man (film)','The Amazing Spider-Man 2':'The Amazing Spider-Man 2',
-  'Marvel Studios One Shot: Agent Carter':'Agent Carter (film)',
-  'Marvel Studios One Shot: A Funny Thing Happened on the Way to Thor’s Hammer':'A Funny Thing Happened on the Way to Thor’s Hammer',
-  'Marvel Studios One Shot: The Consultant':'The Consultant (Marvel One-Shot)',
-  'Marvel Studios One Shot: Item 47':'Item 47',
-  'Marvel Studios One Shot: All Hail the King':'All Hail the King',
-  'Werewolf By Night':'Werewolf by Night (TV special)',
-  'The Guardians of the Galaxy Holiday Special':'The Guardians of the Galaxy Holiday Special'
+'X-Men':'X-Men (film)','X2: X-Men United':'X2 (film)','X-Men: The Last Stand':'X-Men: The Last Stand','X-Men Origins: Wolverine':'X-Men Origins: Wolverine','X-Men: First Class':'X-Men: First Class','X-Men: Days of Future Past':'X-Men: Days of Future Past','The Wolverine':'The Wolverine (film)','Logan':'Logan (film)',
+'Marvel One-Shot: The Consultant':'The Consultant (Marvel One-Shot)','Marvel One-Shot: A Funny Thing Happened on the Way to Thor’s Hammer':'A Funny Thing Happened on the Way to Thor’s Hammer','Marvel One-Shot: Item 47':'Item 47','Marvel One-Shot: Agent Carter':'Agent Carter (film)','Marvel One-Shot: All Hail the King':'All Hail the King','Peter’s To-Do List':'Peter’s To-Do List',
+'Agents of S.H.I.E.L.D.':'Agents of S.H.I.E.L.D.','Agent Carter':'Agent Carter (TV series)','Daredevil':'Daredevil (TV series)','Jessica Jones':'Jessica Jones (TV series)','Jessica Jones – 2. Sezon':'Jessica Jones (TV series)','Jessica Jones – 3. Sezon':'Jessica Jones (TV series)','Luke Cage':'Luke Cage (TV series)','Luke Cage – 2. Sezon':'Luke Cage (TV series)','Iron Fist':'Iron Fist (TV series)','Iron Fist – 2. Sezon':'Iron Fist (TV series)','Daredevil – 3. Sezon':'Daredevil (TV series)','The Defenders':'The Defenders (miniseries)','The Punisher':'The Punisher (TV series)','The Punisher – 2. Sezon':'The Punisher (TV series)','Runaways':'Runaways (TV series)','Runaways – 2. Sezon':'Runaways (TV series)','Runaways – 3. Sezon':'Runaways (TV series)','Cloak & Dagger':'Cloak & Dagger (TV series)','Cloak & Dagger – 2. Sezon':'Cloak & Dagger (TV series)','Inhumans':'Inhumans (TV series)',
+'Loki – 1. Sezon':'Loki (TV series)','Loki – 2. Sezon':'Loki (TV series)','What If…? – 1. Sezon':'What If...? (TV series)','What If…? – 2. Sezon':'What If...? (TV series)','What If…? – 3. Sezon':'What If...? (TV series)','I Am Groot – 1. Sezon':'I Am Groot','I Am Groot – 2. Sezon':'I Am Groot','X-Men ’97 – 1. Sezon':'X-Men ’97','X-Men ’97 – 2. Sezon':'X-Men ’97','Your Friendly Neighborhood Spider-Man – 1. Sezon':'Your Friendly Neighborhood Spider-Man','Daredevil: Born Again – 1. Sezon':'Daredevil: Born Again','Daredevil: Born Again – 2. Sezon':'Daredevil: Born Again'
 };
-
 const releaseAll=[
-  'Iron Man','The Incredible Hulk','Iron Man 2','Thor','Marvel Studios One Shot: The Consultant','Captain America: The First Avenger','Marvel Studios One Shot: A Funny Thing Happened on the Way to Thor’s Hammer','The Avengers','Marvel Studios One Shot: Item 47','Iron Man 3','Marvel Studios One Shot: Agent Carter','Thor: The Dark World','Marvel Studios One Shot: All Hail the King','Captain America: The Winter Soldier','Guardians of the Galaxy','Daredevil S1','Avengers: Age of Ultron','Ant-Man','Jessica Jones S1','Daredevil S2','Captain America: Civil War','Luke Cage S1','Doctor Strange','Iron Fist S1','Guardians of the Galaxy Vol. 2','Spider-Man: Homecoming','The Defenders','Thor: Ragnarok','The Punisher S1','Black Panther','Jessica Jones S2','Avengers: Infinity War','Luke Cage S2','Ant-Man and the Wasp','Iron Fist S2','Daredevil S3','The Punisher S2','Captain Marvel','Avengers: Endgame','Jessica Jones S3','Spider-Man: Far From Home','WandaVision','The Falcon and the Winter Soldier','Loki S1','Black Widow','What If...? S1','Shang-Chi and the Legend of the Ten Rings','Eternals','Hawkeye','Spider-Man: No Way Home','Moon Knight','Doctor Strange in the Multiverse of Madness','Ms. Marvel','Thor: Love and Thunder','I Am Groot S1','She-Hulk: Attorney at Law','Werewolf By Night','Black Panther: Wakanda Forever','The Guardians of the Galaxy Holiday Special','Ant-Man and the Wasp: Quantumania','Guardians of the Galaxy Vol. 3','Secret Invasion','I Am Groot S2','Loki S2','The Marvels','What If...? S2','Echo','Deadpool & Wolverine','Agatha All Along','What If...? S3','Captain America: Brave New World','Daredevil: Born Again S1','Thunderbolts*','Ironheart','The Fantastic Four: First Steps','Eyes of Wakanda','Marvel Zombies','Wonder Man','Daredevil: Born Again S2','The Punisher: One Last Kill','Spider-Man: Brand New Day'
+'Iron Man','The Incredible Hulk','Iron Man 2','Thor','Marvel One-Shot: The Consultant','Captain America: The First Avenger','Marvel One-Shot: A Funny Thing Happened on the Way to Thor’s Hammer','The Avengers','Marvel One-Shot: Item 47','Iron Man 3','Marvel One-Shot: Agent Carter','Thor: The Dark World','Marvel One-Shot: All Hail the King','Captain America: The Winter Soldier','Guardians of the Galaxy','Daredevil','Avengers: Age of Ultron','Ant-Man','Jessica Jones','Captain America: Civil War','Luke Cage','Doctor Strange','Iron Fist','Guardians of the Galaxy Vol. 2','Spider-Man: Homecoming','The Defenders','Thor: Ragnarok','The Punisher','Black Panther','Jessica Jones – 2. Sezon','Avengers: Infinity War','Luke Cage – 2. Sezon','Ant-Man and the Wasp','Iron Fist – 2. Sezon','Daredevil – 3. Sezon','The Punisher – 2. Sezon','Captain Marvel','Avengers: Endgame','Jessica Jones – 3. Sezon','Spider-Man: Far From Home','WandaVision','The Falcon and the Winter Soldier','Loki – 1. Sezon','Black Widow','What If…? – 1. Sezon','Shang-Chi and the Legend of the Ten Rings','Eternals','Hawkeye','Spider-Man: No Way Home','Moon Knight','Doctor Strange in the Multiverse of Madness','Ms. Marvel','Thor: Love and Thunder','I Am Groot – 1. Sezon','She-Hulk: Attorney at Law','Werewolf by Night','Black Panther: Wakanda Forever','The Guardians of the Galaxy Holiday Special','Ant-Man and the Wasp: Quantumania','Guardians of the Galaxy Vol. 3','Secret Invasion','I Am Groot – 2. Sezon','Loki – 2. Sezon','The Marvels','What If…? – 2. Sezon','Echo','X-Men ’97 – 1. Sezon','Deadpool & Wolverine','Agatha All Along','What If…? – 3. Sezon','Your Friendly Neighborhood Spider-Man – 1. Sezon','Captain America: Brave New World','Daredevil: Born Again – 1. Sezon','Thunderbolts*','Ironheart','The Fantastic Four: First Steps','Eyes of Wakanda','Marvel Zombies','Wonder Man','Daredevil: Born Again – 2. Sezon','X-Men ’97 – 2. Sezon','Spider-Man: Brand New Day'
 ].map(t=>({t,w:wikiAliases[t]||t}));
 window.MCU_RELEASE_ALL_1618=releaseAll;
 
-const preparedExtras=[
-  'X-Men','X2','X-Men: The Last Stand','X-Men: First Class','X-Men: Days of Future Past',
-  'Spider-Man','Spider-Man 2','Spider-Man 3','The Amazing Spider-Man','The Amazing Spider-Man 2',
-  'Deadpool & Wolverine'
+const fullPreparation=[
+'X-Men','X2: X-Men United','X-Men: The Last Stand','Iron Man','The Incredible Hulk','X-Men Origins: Wolverine','Iron Man 2','Thor','X-Men: First Class','Captain America: The First Avenger','Marvel One-Shot: The Consultant','Marvel One-Shot: A Funny Thing Happened on the Way to Thor’s Hammer','The Avengers','Marvel One-Shot: Item 47','Iron Man 3','Marvel One-Shot: Agent Carter','The Wolverine','Agents of S.H.I.E.L.D.','Thor: The Dark World','Marvel One-Shot: All Hail the King','Captain America: The Winter Soldier','X-Men: Days of Future Past','Guardians of the Galaxy','Agent Carter','Daredevil','Avengers: Age of Ultron','Ant-Man','Jessica Jones','Deadpool','Captain America: Civil War','Team Thor','Luke Cage','Doctor Strange','Team Thor: Part 2','Iron Fist','Guardians of the Galaxy Vol. 2','Spider-Man: Homecoming','The Defenders','Inhumans','Thor: Ragnarok','The Punisher','Runaways','Logan','Team Darryl','Black Panther','Jessica Jones – 2. Sezon','Avengers: Infinity War','Deadpool 2','Cloak & Dagger','Luke Cage – 2. Sezon','Ant-Man and the Wasp','Iron Fist – 2. Sezon','Daredevil – 3. Sezon','Runaways – 2. Sezon','The Punisher – 2. Sezon','Captain Marvel','Cloak & Dagger – 2. Sezon','Avengers: Endgame','Jessica Jones – 3. Sezon','Spider-Man: Far From Home','Peter’s To-Do List','Runaways – 3. Sezon','WandaVision','The Falcon and the Winter Soldier','Loki – 1. Sezon','Black Widow','What If…? – 1. Sezon','Shang-Chi and the Legend of the Ten Rings','Eternals','Hawkeye','Spider-Man: No Way Home','Moon Knight','Doctor Strange in the Multiverse of Madness','Ms. Marvel','Thor: Love and Thunder','I Am Groot – 1. Sezon','She-Hulk: Attorney at Law','Werewolf by Night','Black Panther: Wakanda Forever','The Guardians of the Galaxy Holiday Special','Ant-Man and the Wasp: Quantumania','Guardians of the Galaxy Vol. 3','Secret Invasion','I Am Groot – 2. Sezon','Loki – 2. Sezon','The Marvels','What If…? – 2. Sezon','Echo','X-Men ’97 – 1. Sezon','Deadpool & Wolverine','Agatha All Along','What If…? – 3. Sezon','Your Friendly Neighborhood Spider-Man – 1. Sezon','Captain America: Brave New World','Daredevil: Born Again – 1. Sezon','Thunderbolts*','Ironheart','The Fantastic Four: First Steps','Eyes of Wakanda','Marvel Zombies','Wonder Man','Daredevil: Born Again – 2. Sezon','X-Men ’97 – 2. Sezon','Spider-Man: Brand New Day'
 ].map(t=>({t,w:wikiAliases[t]||t}));
+window.MCU_FULL_PREPARATION_1618=fullPreparation;
 
-let mode='doomsday';
-window.__MCU_FULL_MODE_1618__=false;
-window.__MCU_LIST_MODE_1618__='doomsday';
-
-function ensureExternalMeta(){
-  try{
-    if(typeof PHASES!=='undefined')Object.assign(PHASES,{
-      'X-Men':'X-Men Evreni','X2':'X-Men Evreni','X-Men: The Last Stand':'X-Men Evreni','X-Men: First Class':'X-Men Evreni','X-Men: Days of Future Past':'X-Men Evreni',
-      'Spider-Man':'Tobey Spider-Verse','Spider-Man 2':'Tobey Spider-Verse','Spider-Man 3':'Tobey Spider-Verse',
-      'The Amazing Spider-Man':'Andrew Spider-Verse','The Amazing Spider-Man 2':'Andrew Spider-Verse'
-    });
-    if(typeof DURATIONS!=='undefined')Object.assign(DURATIONS,{
-      'X-Men':104,'X2':134,'X-Men: The Last Stand':104,'X-Men: First Class':132,'X-Men: Days of Future Past':132,
-      'Spider-Man':121,'Spider-Man 2':127,'Spider-Man 3':139,'The Amazing Spider-Man':136,'The Amazing Spider-Man 2':142
-    });
-  }catch{}
-}
-
-function setMode(v){
-  mode=['doomsday','prepared','chronological','release'].includes(v)?v:'doomsday';
-  window.__MCU_FULL_MODE_1618__=mode!=='doomsday';
-  window.__MCU_LIST_MODE_1618__=mode;
-}
-
-function rememberBase(){
-  if(!window.__MCU_DOOMSDAY_BASE_1618__&&typeof DOOMSDAY_DATA!=='undefined'&&Array.isArray(DOOMSDAY_DATA)){
-    window.__MCU_DOOMSDAY_BASE_1618__=DOOMSDAY_DATA.map(x=>({...x}));
-  }
-}
-
-function modeLabel(){
-  return mode==='prepared'?'🔥 Doomsday’e Tam Hazırlık':mode==='chronological'?'⏳ Kronolojiye Göre — Filmler':mode==='release'?'📅 Yayın Sırasına Göre — Tüm MCU':'⚡ Doomsday Listesi';
-}
-
-function titleForMode(){
-  return mode==='prepared'?"DOOMSDAY’E TAM HAZIRLIK — MCU + X-MEN + SPIDER-VERSE":mode==='chronological'?'KRONOLOJİYE GÖRE — TÜM FİLMLER':mode==='release'?'YAYIN SIRASINA GÖRE — TÜM MCU':'DOOMSDAY İÇİN İZLEMEN GEREKENLER';
-}
-
-function sourceForMode(){
-  if(mode==='prepared'){
-    const base=window.__MCU_DOOMSDAY_BASE_1618__||[];
-    const seen=new Set();
-    return [...preparedExtras,...base].filter(x=>x?.t&&!seen.has(x.t)&&seen.add(x.t));
-  }
-  if(mode==='chronological'&&typeof CHRONOLOGICAL!=='undefined')return CHRONOLOGICAL;
-  if(mode==='release')return releaseAll;
-  return window.__MCU_DOOMSDAY_BASE_1618__||[];
-}
-
-function applyMode(render=true){
-  try{
-    if(typeof currentCategory==='undefined'||currentCategory!=='doomsday')return;
-    rememberBase();ensureExternalMeta();
-    const src=sourceForMode();
-    if(typeof DOOMSDAY_DATA!=='undefined'&&Array.isArray(DOOMSDAY_DATA)&&Array.isArray(src)){
-      DOOMSDAY_DATA.splice(0,DOOMSDAY_DATA.length,...src.map(x=>({...x})));
-      if(typeof DATA!=='undefined'&&DATA)DATA.doomsday=DOOMSDAY_DATA;
-    }
-    if(typeof TITLES!=='undefined')TITLES.doomsday=titleForMode();
-    if(render&&typeof renderCurrent==='function')renderCurrent(false);
-    setTimeout(addChooser,0);
-  }catch{}
-}
-
-function restoreBase(render=false){
-  setMode('doomsday');
-  try{
-    rememberBase();
-    const src=window.__MCU_DOOMSDAY_BASE_1618__||[];
-    if(typeof DOOMSDAY_DATA!=='undefined'&&Array.isArray(DOOMSDAY_DATA)){
-      DOOMSDAY_DATA.splice(0,DOOMSDAY_DATA.length,...src.map(x=>({...x})));
-      if(typeof DATA!=='undefined'&&DATA)DATA.doomsday=DOOMSDAY_DATA;
-    }
-    if(typeof TITLES!=='undefined')TITLES.doomsday='DOOMSDAY İÇİN İZLEMEN GEREKENLER';
-    if(render&&typeof currentCategory!=='undefined'&&currentCategory==='doomsday'&&typeof renderCurrent==='function')renderCurrent(false);
-  }catch{}
-}
-
-function ensureStyle(){
-  if(document.getElementById('mcuListChooserStyle1618'))return;
-  const s=document.createElement('style');
-  s.id='mcuListChooserStyle1618';
-  s.textContent=`
-    #fullMcuMode1618{margin:0 0 18px;padding:0;overflow:hidden}
-    #fullMcuMode1618>summary{list-style:none;cursor:pointer;padding:13px 15px;font-weight:900;display:flex;justify-content:space-between;gap:12px;align-items:center}
-    #fullMcuMode1618>summary::-webkit-details-marker{display:none}
-    #fullMcuMode1618 .mcu-list-current{font-size:12px;color:#aeb3bf;font-weight:700;text-align:right}
-    #fullMcuMode1618 .mcu-list-options{padding:0 12px 12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}
-    #fullMcuMode1618 .mcu-list-options button{width:100%;text-align:left}
-  `;
-  document.head.appendChild(s);
-}
-
-function addChooser(){
-  if(typeof currentCategory==='undefined'||currentCategory!=='doomsday')return;
-  const list=document.getElementById('movieList');if(!list)return;
-  ensureStyle();
-  let wrap=document.getElementById('fullMcuMode1618');
-  if(!wrap){
-    wrap=document.createElement('details');
-    wrap.id='fullMcuMode1618';
-    wrap.className='panel';
-    list.parentNode.insertBefore(wrap,list);
-  }
-  const wasOpen=wrap.open;
-  wrap.innerHTML=`<summary><span>📋 Bunu Listele</span><span class="mcu-list-current">${modeLabel()} ▾</span></summary><div class="mcu-list-options"><button type="button" data-mcu-list-mode="doomsday" class="${mode==='doomsday'?'active':'secondary'}">⚡ Doomsday Listesi</button><button type="button" data-mcu-list-mode="prepared" class="${mode==='prepared'?'active':'secondary'}">🔥 Doomsday’e Tam Hazırlık — MCU + X-Men + Spider-Verse</button><button type="button" data-mcu-list-mode="chronological" class="${mode==='chronological'?'active':'secondary'}">⏳ Kronolojiye Göre — Filmler</button><button type="button" data-mcu-list-mode="release" class="${mode==='release'?'active':'secondary'}">📅 Yayın Sırasına Göre — Tüm MCU</button></div>`;
-  wrap.open=wasOpen;
-  wrap.querySelectorAll('[data-mcu-list-mode]').forEach(btn=>btn.onclick=e=>{
-    e.preventDefault();
-    setMode(btn.dataset.mcuListMode);
-    wrap.open=false;
-    applyMode(true);
-  });
-}
-
-function watch(){
-  ensureExternalMeta();
-  if(typeof currentCategory!=='undefined'&&currentCategory==='doomsday'){
-    rememberBase();
-    addChooser();
-  }else{
-    if(mode!=='doomsday')restoreBase(false);
-    document.getElementById('fullMcuMode1618')?.remove();
-  }
-}
-
-setTimeout(watch,400);
-setTimeout(watch,1200);
-document.addEventListener('click',()=>setTimeout(watch,30),true);
-window.addEventListener('focus',watch,{passive:true});
+let mode='doomsday';window.__MCU_FULL_MODE_1618__=false;window.__MCU_LIST_MODE_1618__='doomsday';
+function setMode(v){mode=['doomsday','prepared','chronological','release'].includes(v)?v:'doomsday';window.__MCU_FULL_MODE_1618__=mode!=='doomsday';window.__MCU_LIST_MODE_1618__=mode;}
+function rememberBase(){if(!window.__MCU_DOOMSDAY_BASE_1618__&&typeof DOOMSDAY_DATA!=='undefined'&&Array.isArray(DOOMSDAY_DATA))window.__MCU_DOOMSDAY_BASE_1618__=DOOMSDAY_DATA.map(x=>({...x}));}
+function modeLabel(){return mode==='prepared'?'🔥 MCU’ya Tam Hazırlık':mode==='chronological'?'⏳ Kronolojiye Göre — Filmler':mode==='release'?'📅 Yayın Sırasına Göre — Tüm MCU':'⚡ Doomsday Listesi';}
+function titleForMode(){return mode==='prepared'?"MCU’YA TAM HAZIRLIK":mode==='chronological'?'KRONOLOJİYE GÖRE — TÜM FİLMLER':mode==='release'?'YAYIN SIRASINA GÖRE — TÜM MCU':'DOOMSDAY İÇİN İZLEMEN GEREKENLER';}
+function sourceForMode(){if(mode==='prepared')return fullPreparation;if(mode==='chronological'&&typeof CHRONOLOGICAL!=='undefined')return CHRONOLOGICAL;if(mode==='release')return releaseAll;return window.__MCU_DOOMSDAY_BASE_1618__||[];}
+function applyMode(render=true){try{if(typeof currentCategory==='undefined'||currentCategory!=='doomsday')return;rememberBase();const src=sourceForMode();if(typeof DOOMSDAY_DATA!=='undefined'&&Array.isArray(DOOMSDAY_DATA)){DOOMSDAY_DATA.splice(0,DOOMSDAY_DATA.length,...src.map(x=>({...x})));if(typeof DATA!=='undefined'&&DATA)DATA.doomsday=DOOMSDAY_DATA;}if(typeof TITLES!=='undefined')TITLES.doomsday=titleForMode();if(render&&typeof renderCurrent==='function')renderCurrent(false);setTimeout(addChooser,0);}catch{}}
+function restoreBase(render=false){setMode('doomsday');try{rememberBase();const src=window.__MCU_DOOMSDAY_BASE_1618__||[];if(typeof DOOMSDAY_DATA!=='undefined'&&Array.isArray(DOOMSDAY_DATA)){DOOMSDAY_DATA.splice(0,DOOMSDAY_DATA.length,...src.map(x=>({...x})));if(typeof DATA!=='undefined'&&DATA)DATA.doomsday=DOOMSDAY_DATA;}if(typeof TITLES!=='undefined')TITLES.doomsday='DOOMSDAY İÇİN İZLEMEN GEREKENLER';if(render&&typeof currentCategory!=='undefined'&&currentCategory==='doomsday'&&typeof renderCurrent==='function')renderCurrent(false);}catch{}}
+function ensureStyle(){if(document.getElementById('mcuListChooserStyle1618'))return;const s=document.createElement('style');s.id='mcuListChooserStyle1618';s.textContent=`#fullMcuMode1618{margin:0 0 18px;padding:0;overflow:hidden}#fullMcuMode1618>summary{list-style:none;cursor:pointer;padding:13px 15px;font-weight:900;display:flex;justify-content:space-between;gap:12px;align-items:center}#fullMcuMode1618>summary::-webkit-details-marker{display:none}#fullMcuMode1618 .mcu-list-current{font-size:12px;color:#aeb3bf;font-weight:700;text-align:right}#fullMcuMode1618 .mcu-list-options{padding:0 12px 12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}#fullMcuMode1618 .mcu-list-options button{width:100%;text-align:left}`;document.head.appendChild(s);}
+function addChooser(){if(typeof currentCategory==='undefined'||currentCategory!=='doomsday')return;const list=document.getElementById('movieList');if(!list)return;ensureStyle();let wrap=document.getElementById('fullMcuMode1618');if(!wrap){wrap=document.createElement('details');wrap.id='fullMcuMode1618';wrap.className='panel';list.parentNode.insertBefore(wrap,list);}const wasOpen=wrap.open;wrap.innerHTML=`<summary><span>📋 Bunu Listele</span><span class="mcu-list-current">${modeLabel()} ▾</span></summary><div class="mcu-list-options"><button type="button" data-mcu-list-mode="doomsday" class="${mode==='doomsday'?'active':'secondary'}">⚡ Doomsday Listesi</button><button type="button" data-mcu-list-mode="prepared" class="${mode==='prepared'?'active':'secondary'}">🔥 MCU’ya Tam Hazırlık</button><button type="button" data-mcu-list-mode="chronological" class="${mode==='chronological'?'active':'secondary'}">⏳ Kronolojiye Göre — Filmler</button><button type="button" data-mcu-list-mode="release" class="${mode==='release'?'active':'secondary'}">📅 Yayın Sırasına Göre — Tüm MCU</button></div>`;wrap.open=wasOpen;wrap.querySelectorAll('[data-mcu-list-mode]').forEach(btn=>btn.onclick=e=>{e.preventDefault();setMode(btn.dataset.mcuListMode);wrap.open=false;applyMode(true);});}
+function watch(){if(typeof currentCategory!=='undefined'&&currentCategory==='doomsday'){rememberBase();addChooser();}else{if(mode!=='doomsday')restoreBase(false);document.getElementById('fullMcuMode1618')?.remove();}}
+setTimeout(watch,400);setTimeout(watch,1200);document.addEventListener('click',()=>setTimeout(watch,30),true);window.addEventListener('focus',watch,{passive:true});
 })();
