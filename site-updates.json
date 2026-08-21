@@ -1,6 +1,19 @@
 {
-  "updated": "2026-08-20",
+  "updated": "2026-08-21",
   "entries": [
+    {
+      "date": "2026-08-21",
+      "title": "Plan 1 — Dashboard Geliştirmesi",
+      "items": [
+        "Ana ekrana MCU yolculuğunu tek bakışta gösteren yeni Dashboard eklendi.",
+        "İzlenen film sayısı, izlenen sezon sayısı, toplam XP ve kullanıcı seviyesi artık Dashboard üzerinde gösteriliyor.",
+        "Son kazanılan kupa, son izlenen yapım ve açık olan listeye göre sıradaki izlenecek yapım ana ekranda yer alıyor.",
+        "MCU tamamlanma yüzdesi film ve sezon ilerlemesine göre hesaplanıp ilerleme çubuğuyla gösteriliyor.",
+        "Infinity Stones ilerlemesi Dashboard üzerinde 0/6 ile 6/6 arasında görsel olarak takip ediliyor.",
+        "Eski Doomsday’e Tam Hazırlık görünümü kaldırılarak kullanıcının verdiği 104 maddelik 'MCU’ya Tam Hazırlık' listesiyle değiştirildi.",
+        "Güncelleme v1.6.18 sürüm numarası değiştirilmeden web ve Windows ortak arayüzüne yayınlandı."
+      ]
+    },
     {
       "date": "2026-08-20",
       "title": "Yayın Sırasına Göre Tüm MCU",
