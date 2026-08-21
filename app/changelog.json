@@ -3,22 +3,16 @@
   "entries": [
     {
       "version": "1.6.18",
-      "date": "2026-08-20",
-      "title": "Doomsday Tam Hazırlık ve Takip Güncellemeleri",
+      "date": "2026-08-21",
+      "title": "Plan 1 — Dashboard Geliştirmesi",
       "items": [
-        "İlk sekmedeki 'Bunu Listele' menüsüne 'Doomsday’e Tam Hazırlık — MCU + X-Men + Spider-Verse' görünümü eklendi.",
-        "Bu genişletilmiş hazırlık görünümüne X-Men, X2, X-Men: The Last Stand, X-Men: First Class ve X-Men: Days of Future Past eklendi.",
-        "Tobey Maguire Spider-Man üçlemesi ile Andrew Garfield'ın The Amazing Spider-Man ve The Amazing Spider-Man 2 filmleri önerilen multiverse hazırlığı olarak eklendi.",
-        "Deadpool & Wolverine, X-Men ve multiverse bağlantısı nedeniyle genişletilmiş hazırlık listesine dahil edildi.",
-        "Ana Doomsday listesi korunur; genişletilmiş Tam Hazırlık listesi kullanıcı isterse seçilir.",
-        "'Ben Her Şeye Hâkim Olmak İstiyorum / Tam MCU Kronolojisi' seçeneği, Tam Hazırlık görünümüyle gereksiz biçimde örtüştüğü için Bunu Listele menüsünden kaldırıldı.",
-        "Bunu Listele menüsündeki 'Vizyona Göre — Filmler' görünümü 'Yayın Sırasına Göre — Tüm MCU' olarak yenilendi.",
-        "Yayın sırası artık filmleri, dizi sezonlarını, One-Shot yapımlarını ve özel yapımları tek birleşik listede gösterir.",
-        "Dizi sezonları yayın sırası görünümünde de Diziler sekmesiyle çift yönlü senkronize çalışır.",
-        "Şimdi İzle önerisi açık olan listeye göre sıradaki tamamlanmamış içeriği gösterir.",
-        "Dizi sezon süreleri ve izlenen toplam dizi süresi istatistikleri eklendi.",
-        "Üst ilerleme sayaçları açık olan listeye göre değişir.",
-        "Yama Notları, Favoriler filtresi, Black Widow afişi ve yan menü sadeleştirmesiyle ilgili v1.6.18 bakım düzeltmeleri uygulandı."
+        "Ana ekrana kullanıcının MCU yolculuğunu tek bakışta özetleyen yeni Dashboard eklendi.",
+        "Dashboard; izlenen toplam film sayısını, izlenen sezon sayısını, toplam XP'yi ve kullanıcı seviyesini gösterir.",
+        "Son kazanılan kupa ve Infinity Stones ilerlemesi ana ekrana taşındı.",
+        "Son izlenen yapım ile açık olan listeye göre sıradaki izlenecek yapım Dashboard üzerinde gösterilir.",
+        "MCU tamamlanma yüzdesi toplam film ve dizi sezonu ilerlemesine göre hesaplanır ve ilerleme çubuğuyla gösterilir.",
+        "Doomsday’e Tam Hazırlık görünümü kaldırılarak kullanıcının verdiği 104 maddelik yeni 'MCU’ya Tam Hazırlık' listesiyle değiştirildi.",
+        "Plan 1 v1.6.18 içinde web ve Windows ortak arayüzüne yayınlandı."
       ]
     },
     {
