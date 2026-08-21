@@ -23,9 +23,7 @@ function seasonWatched(t,s){try{return !!state?.watched?.['series|'+t+'|'+s]}cat
 function itemWatched(item){const m=SERIES_ALIAS[item?.t];return m?seasonWatched(m[0],m[1])||movieWatched(item.t):movieWatched(item?.t||'')}
 
 function globalStats(){
-  try{
-    if(typeof achievementStats==='function')return achievementStats();
-  }catch{}
+  try{if(typeof achievementStats==='function')return achievementStats()}catch{}
   let done=0,seriesDone=0,all=0;
   try{done=(ALL_MOVIES||[]).filter(x=>movieWatched(x.t)).length;all+=(ALL_MOVIES||[]).length}catch{}
   try{(SERIES||[]).forEach(x=>{all+=Number(x.seasons||0);for(let i=1;i<=Number(x.seasons||0);i++)if(seasonWatched(x.t,i))seriesDone++})}catch{}
@@ -48,25 +46,28 @@ function parseXPKey(k){
   return null;
 }
 function lastWatched(){
-  try{
-    const keys=Object.keys(state?.earnedWatchXP||{});
-    for(let i=keys.length-1;i>=0;i--){const t=parseXPKey(keys[i]);if(t)return t}
-  }catch{}
-  try{
-    const keys=Object.keys(state?.watched||{}).filter(k=>state.watched[k]);
-    for(let i=keys.length-1;i>=0;i--){const t=parseXPKey(keys[i]);if(t)return t}
-  }catch{}
+  try{if(state?.dashboardLastWatched?.title)return state.dashboardLastWatched.title}catch{}
+  try{const keys=Object.keys(state?.earnedWatchXP||{});for(let i=keys.length-1;i>=0;i--){const t=parseXPKey(keys[i]);if(t)return t}}catch{}
+  try{const keys=Object.keys(state?.watched||{}).filter(k=>state.watched[k]);for(let i=keys.length-1;i>=0;i--){const t=parseXPKey(keys[i]);if(t)return t}}catch{}
   return null;
 }
 function nextItem(){
+  try{if(typeof currentCategory!=='undefined'&&currentCategory==='doomsday'&&Array.isArray(DATA?.doomsday)){const n=DATA.doomsday.find(x=>!itemWatched(x));if(n)return n.t}}catch{}
+  const t=document.getElementById('nextTitle')?.textContent?.trim();return t&&t!=='—'?t:null;
+}
+function patchWatchSetters(){
   try{
-    if(typeof currentCategory!=='undefined'&&currentCategory==='doomsday'&&Array.isArray(DATA?.doomsday)){
-      const n=DATA.doomsday.find(x=>!itemWatched(x));
-      if(n)return n.t;
+    const movie=window.setMovieWatched;
+    if(typeof movie==='function'&&!movie.__mcuDashLastWatch){
+      const wrapped=function(item,value){const r=movie.apply(this,arguments);if(value&&item?.t){try{state.dashboardLastWatched={title:item.t,type:'movie',at:Date.now()}}catch{}}return r};
+      wrapped.__mcuDashLastWatch=true;window.setMovieWatched=wrapped;
+    }
+    const series=window.setSeriesWatched;
+    if(typeof series==='function'&&!series.__mcuDashLastWatch){
+      const wrapped=function(show,season,value){const r=series.apply(this,arguments);if(value&&show?.t){try{state.dashboardLastWatched={title:show.t+' • Sezon '+season,type:'series',at:Date.now()}}catch{}}return r};
+      wrapped.__mcuDashLastWatch=true;window.setSeriesWatched=wrapped;
     }
   }catch{}
-  const t=document.getElementById('nextTitle')?.textContent?.trim();
-  return t&&t!=='—'?t:null;
 }
 function ensureStyle(){
   if(document.getElementById('mcuDashboardPlan1Style1618'))return;
@@ -88,31 +89,12 @@ function render(){
   try{
     if(typeof currentCategory==='undefined'||currentCategory!=='doomsday'){document.getElementById('mcuDashboardPlan1')?.remove();return}
     const anchor=document.getElementById('progressText')?.closest('section')||document.getElementById('nextPanel');if(!anchor)return;
-    ensureStyle();
-    let host=document.getElementById('mcuDashboardPlan1');if(!host){host=document.createElement('section');host.id='mcuDashboardPlan1';anchor.parentNode.insertBefore(host,anchor)}
-    const s=globalStats(),li=level(),st=stones(),trophy=lastTrophy(),last=lastWatched(),next=nextItem();
-    const pct=s.all?Math.min(100,Math.round((s.totalDone/s.all)*100)):0;
-    host.innerHTML=`
-      <div class="mcu-dash-hero">
-        <div class="mcu-dash-kicker">MCU Yolculuğun</div><div class="mcu-dash-title">Dashboard</div><div class="mcu-dash-sub">Tüm ilerlemeni tek bakışta gör.</div>
-        <div class="mcu-dash-progress-row"><div><div class="mcu-dash-pct">${pct}% <small>MCU tamamlandı</small></div></div><div style="text-align:right"><b>${s.totalDone} / ${s.all}</b><div class="mcu-dash-sub">toplam içerik</div></div></div>
-        <div class="mcu-dash-bar"><i style="width:${pct}%"></i></div>
-      </div>
-      <div class="mcu-dash-grid">
-        <div class="mcu-dash-card"><span class="mcu-dash-icon">🎬</span><b>${s.done}</b><small>İzlenen Film</small></div>
-        <div class="mcu-dash-card"><span class="mcu-dash-icon">📺</span><b>${s.seriesDone}</b><small>İzlenen Sezon</small></div>
-        <div class="mcu-dash-card"><span class="mcu-dash-icon">⚡</span><b>${li.xp}</b><small>Toplam XP</small></div>
-        <div class="mcu-dash-card"><span class="mcu-dash-icon">🛡️</span><b>Seviye ${li.level}</b><small>${esc(li.rank)}</small></div>
-      </div>
-      <div class="mcu-dash-wide">
-        <div class="mcu-dash-journey"><div class="label">🏆 Son Kazanılan Kupa</div><div class="value">${trophy?esc(trophy.title):'Henüz kupa yok'}</div><div class="hint">${trophy?esc(trophy.tier)+' kupa':'İlk başarımını açarak başla'}</div></div>
-        <div class="mcu-dash-journey"><div class="label">💎 Infinity Stones</div><div class="value">${st.done} / ${st.total} taş toplandı</div><div class="mcu-dash-stones">${Array.from({length:st.total},(_,i)=>`<i class="${i<st.done?'on':''}"></i>`).join('')}</div></div>
-        <div class="mcu-dash-journey"><div class="label">✅ Son İzlenen Yapım</div><div class="value">${esc(last||'Henüz kayıt yok')}</div><div class="hint">Son tamamlanan içeriğin</div></div>
-        <div class="mcu-dash-journey"><div class="label">▶ Sıradaki İzlenecek Yapım</div><div class="value">${esc(next||'Liste tamamlandı')}</div><div class="hint">Açık olan izleme listene göre</div></div>
-      </div>`;
+    ensureStyle();let host=document.getElementById('mcuDashboardPlan1');if(!host){host=document.createElement('section');host.id='mcuDashboardPlan1';anchor.parentNode.insertBefore(host,anchor)}
+    const s=globalStats(),li=level(),st=stones(),trophy=lastTrophy(),last=lastWatched(),next=nextItem();const pct=s.all?Math.min(100,Math.round((s.totalDone/s.all)*100)):0;
+    host.innerHTML=`<div class="mcu-dash-hero"><div class="mcu-dash-kicker">MCU Yolculuğun</div><div class="mcu-dash-title">Dashboard</div><div class="mcu-dash-sub">Tüm ilerlemeni tek bakışta gör.</div><div class="mcu-dash-progress-row"><div><div class="mcu-dash-pct">${pct}% <small>MCU tamamlandı</small></div></div><div style="text-align:right"><b>${s.totalDone} / ${s.all}</b><div class="mcu-dash-sub">toplam içerik</div></div></div><div class="mcu-dash-bar"><i style="width:${pct}%"></i></div></div><div class="mcu-dash-grid"><div class="mcu-dash-card"><span class="mcu-dash-icon">🎬</span><b>${s.done}</b><small>İzlenen Film</small></div><div class="mcu-dash-card"><span class="mcu-dash-icon">📺</span><b>${s.seriesDone}</b><small>İzlenen Sezon</small></div><div class="mcu-dash-card"><span class="mcu-dash-icon">⚡</span><b>${li.xp}</b><small>Toplam XP</small></div><div class="mcu-dash-card"><span class="mcu-dash-icon">🛡️</span><b>Seviye ${li.level}</b><small>${esc(li.rank)}</small></div></div><div class="mcu-dash-wide"><div class="mcu-dash-journey"><div class="label">🏆 Son Kazanılan Kupa</div><div class="value">${trophy?esc(trophy.title):'Henüz kupa yok'}</div><div class="hint">${trophy?esc(trophy.tier)+' kupa':'İlk başarımını açarak başla'}</div></div><div class="mcu-dash-journey"><div class="label">💎 Infinity Stones</div><div class="value">${st.done} / ${st.total} taş toplandı</div><div class="mcu-dash-stones">${Array.from({length:st.total},(_,i)=>`<i class="${i<st.done?'on':''}"></i>`).join('')}</div></div><div class="mcu-dash-journey"><div class="label">✅ Son İzlenen Yapım</div><div class="value">${esc(last||'Henüz kayıt yok')}</div><div class="hint">Son tamamlanan içeriğin</div></div><div class="mcu-dash-journey"><div class="label">▶ Sıradaki İzlenecek Yapım</div><div class="value">${esc(next||'Liste tamamlandı')}</div><div class="hint">Açık olan izleme listene göre</div></div></div>`;
   }catch{}
 }
 function patchProgress(){try{const original=window.updateProgress;if(typeof original!=='function'||original.__mcuDashP1)return;const wrapped=function(...args){const r=original.apply(this,args);setTimeout(render,0);return r};wrapped.__mcuDashP1=true;window.updateProgress=wrapped}catch{}}
-function install(){patchProgress();render()}
+function install(){patchWatchSetters();patchProgress();render()}
 install();setTimeout(install,300);setTimeout(install,1000);document.addEventListener('click',()=>setTimeout(install,60),true);document.addEventListener('change',()=>setTimeout(install,80),true);window.addEventListener('focus',install,{passive:true});
 })();
