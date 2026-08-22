@@ -74,7 +74,6 @@ function ensureStyle(){
   const s=document.createElement('style');s.id='mcuDashboardPlan1Style1618';s.textContent=`
   #mcuDashboardPlan1{margin:0 0 18px;display:grid;gap:12px}
   .mcu-dash-hero{background:linear-gradient(135deg,rgba(230,36,41,.14),rgba(10,12,18,.92) 48%,rgba(53,89,255,.10));border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:18px;overflow:hidden;position:relative}
-  .mcu-dash-hero:after{content:'PLAN 1';position:absolute;right:14px;top:12px;font-size:10px;font-weight:900;letter-spacing:2px;opacity:.28}
   .mcu-dash-kicker{font-size:11px;font-weight:900;letter-spacing:1.5px;color:#ff696d;text-transform:uppercase;margin-bottom:5px}
   .mcu-dash-title{font-size:24px;font-weight:950;letter-spacing:-.5px;margin-bottom:4px}.mcu-dash-sub{color:#aeb3bf;font-size:13px}
   .mcu-dash-progress-row{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-top:17px}.mcu-dash-pct{font-size:34px;font-weight:950}.mcu-dash-pct small{font-size:13px;color:#aeb3bf;font-weight:800}
