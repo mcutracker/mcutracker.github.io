@@ -1,6 +1,18 @@
 {
-  "updated": "2026-08-21",
+  "updated": "2026-08-25",
   "entries": [
+    {
+      "date": "2026-08-25",
+      "title": "Doomsday Hızlı Hazırlık Listesi",
+      "items": [
+        "Doomsday sekmesindeki 'Bunu Listele' menüsüne ayrı bir 'Doomsday Hızlı Hazırlık' seçeneği eklendi.",
+        "Liste; X-Men, X2, Captain America: The First Avenger, The Avengers, Infinity War, Endgame, Loki, Shang-Chi, No Way Home, Wakanda Forever, Brave New World, Deadpool & Wolverine, Multiverse of Madness, Thunderbolts* ve The Fantastic Four: First Steps yapımlarını kapsıyor.",
+        "Loki uygulamadaki sezon bazlı takip sistemi nedeniyle 1. ve 2. sezon olarak ayrı kartlarda gösteriliyor.",
+        "Mevcut Doomsday Listesi ve MCU’ya Tam Hazırlık seçenekleri korunuyor; yeni hızlı liste bunlardan bağımsız çalışıyor.",
+        "Şimdi İzle ve liste ilerleme sayaçları hızlı hazırlık seçildiğinde bu listenin sırasını ve tamamlanma durumunu kullanıyor.",
+        "Güncelleme v1.6.18 sürüm numarası değiştirilmeden web ve Windows ortak arayüzüne yayınlandı."
+      ]
+    },
     {
       "date": "2026-08-21",
       "title": "Plan 1 — Dashboard Geliştirmesi",
