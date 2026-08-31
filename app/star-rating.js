@@ -1,6 +1,6 @@
 (()=>{
   'use strict';
-  const VERSION='1.6.17';
+  const VERSION='1.6.19';
   const STYLE_ID='mcuStarRatingStyle';
 
   function ensureStyle(){
@@ -152,6 +152,18 @@
     }catch{}
   }
 
+  function ensureOnboardingModule(){
+    try{
+      if(window.__MCU_ONBOARDING_1619__||document.getElementById('mcuOnboardingDirect1619'))return;
+      const s=document.createElement('script');
+      s.id='mcuOnboardingDirect1619';
+      s.src='https://mcutracker.github.io/app/onboarding-1.6.19.js?t='+Date.now();
+      s.async=false;
+      s.onerror=()=>s.remove();
+      document.head.appendChild(s);
+    }catch{}
+  }
+
   function install(){
     ensureStyle();
     wrapOpenDetail();
@@ -159,6 +171,7 @@
     ensureAdminCleanup();
     ensureDashboardModule();
     ensureAdminClickGuard();
+    ensureOnboardingModule();
     document.addEventListener('click',e=>{
       if(e.target?.closest?.('.detail-btn'))setTimeout(enhanceRating,0);
     },true);
