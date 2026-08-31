@@ -140,12 +140,25 @@
     }catch{}
   }
 
+  function ensureAdminClickGuard(){
+    try{
+      if(window.__MCU_ADMIN_CLICK_GUARD_1618__||document.getElementById('mcuAdminClickGuardDirect1618'))return;
+      const s=document.createElement('script');
+      s.id='mcuAdminClickGuardDirect1618';
+      s.src='https://mcutracker.github.io/app/admin-click-guard-1.6.18.js?t='+Date.now();
+      s.async=false;
+      s.onerror=()=>s.remove();
+      document.head.appendChild(s);
+    }catch{}
+  }
+
   function install(){
     ensureStyle();
     wrapOpenDetail();
     ensureGrowthModule();
     ensureAdminCleanup();
     ensureDashboardModule();
+    ensureAdminClickGuard();
     document.addEventListener('click',e=>{
       if(e.target?.closest?.('.detail-btn'))setTimeout(enhanceRating,0);
     },true);
