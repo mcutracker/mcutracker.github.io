@@ -3,6 +3,14 @@
   "entries": [
     {
       "date": "2026-08-31",
+      "title": "v1.6.19 Arayüz Bakımı",
+      "items": [
+        "Admin Merkezi'ndeki 'Demo Şifresini Yenile' düğmesi kaldırıldı; demo hesap satırı yeniden sadeleştirildi.",
+        "Düzeltme v1.6.19 sürüm numarası değiştirilmeden web ve Windows ortak arayüzüne uygulandı."
+      ]
+    },
+    {
+      "date": "2026-08-31",
       "title": "Büyüme Merkezi ve Stabilizasyon",
       "items": [
         "Admin Merkezi'ne gerçek kullanıcı, aktivasyon oranı, 10+ içerik tamamlayan kullanıcı, son 7 günlük giriş ve ilerleme gibi toplu büyüme metriklerini gösteren Büyüme Merkezi eklendi.",
