@@ -15,10 +15,11 @@
 
   function isInteractive(target){
     if(!(target instanceof Element))return false;
-    return !!target.closest('button,a,input,select,textarea,label,[role="button"],.menu-category,#sideMenu,#hamburgerButton,#menuOverlay');
+    // Yan menünün kendisi interaktif sayılmaz; yalnızca gerçek buton/link alanları çalışır.
+    return !!target.closest('button,a,input,select,textarea,label,[role="button"],.menu-category,#hamburgerButton,#menuOverlay');
   }
 
-  document.addEventListener('click',e=>{
+  function guard(e){
     if(!isAdminCenter())return;
     keepAdminState();
     const target=e.target instanceof Element?e.target:null;
@@ -26,7 +27,10 @@
       e.preventDefault();
       e.stopImmediatePropagation();
     }
-  },true);
+  }
+
+  // Window capture, uygulamanın document seviyesindeki genel click handler'larından önce çalışır.
+  window.addEventListener('click',guard,true);
 
   const observer=new MutationObserver(()=>keepAdminState());
   const start=()=>{
