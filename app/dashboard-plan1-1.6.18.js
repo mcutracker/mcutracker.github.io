@@ -21,6 +21,11 @@ const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 function movieWatched(t){try{return !!state?.watched?.['movie|'+t+'|']}catch{return false}}
 function seasonWatched(t,s){try{return !!state?.watched?.['series|'+t+'|'+s]}catch{return false}}
 function itemWatched(item){const m=SERIES_ALIAS[item?.t];return m?seasonWatched(m[0],m[1])||movieWatched(item.t):movieWatched(item?.t||'')}
+function isAdminCenter(){
+  const subtitle=(document.getElementById('subtitle')?.textContent||'').trim().toLocaleUpperCase('tr-TR');
+  return subtitle==='ADMIN MERKEZİ'||subtitle==='ORTAK ADMIN MERKEZİ';
+}
+function removeDashboard(){document.getElementById('mcuDashboardPlan1')?.remove()}
 
 function globalStats(){
   try{if(typeof achievementStats==='function')return achievementStats()}catch{}
@@ -86,7 +91,7 @@ function ensureStyle(){
 }
 function render(){
   try{
-    if(typeof currentCategory==='undefined'||currentCategory!=='doomsday'){document.getElementById('mcuDashboardPlan1')?.remove();return}
+    if(isAdminCenter()||typeof currentCategory==='undefined'||currentCategory!=='doomsday'){removeDashboard();return}
     const anchor=document.getElementById('progressText')?.closest('section')||document.getElementById('nextPanel');if(!anchor)return;
     ensureStyle();let host=document.getElementById('mcuDashboardPlan1');if(!host){host=document.createElement('section');host.id='mcuDashboardPlan1';anchor.parentNode.insertBefore(host,anchor)}
     const s=globalStats(),li=level(),st=stones(),trophy=lastTrophy(),last=lastWatched(),next=nextItem();const pct=s.all?Math.min(100,Math.round((s.totalDone/s.all)*100)):0;
@@ -94,6 +99,15 @@ function render(){
   }catch{}
 }
 function patchProgress(){try{const original=window.updateProgress;if(typeof original!=='function'||original.__mcuDashP1)return;const wrapped=function(...args){const r=original.apply(this,args);setTimeout(render,0);return r};wrapped.__mcuDashP1=true;window.updateProgress=wrapped}catch{}}
-function install(){patchWatchSetters();patchProgress();render()}
+function observeViewChanges(){
+  try{
+    const target=document.getElementById('subtitle')||document.body;
+    if(!target||target.__mcuDashObserver)return;
+    target.__mcuDashObserver=true;
+    const observer=new MutationObserver(()=>setTimeout(render,0));
+    observer.observe(target,{childList:true,subtree:true,characterData:true});
+  }catch{}
+}
+function install(){patchWatchSetters();patchProgress();observeViewChanges();render()}
 install();setTimeout(install,300);setTimeout(install,1000);document.addEventListener('click',()=>setTimeout(install,60),true);document.addEventListener('change',()=>setTimeout(install,80),true);window.addEventListener('focus',install,{passive:true});
 })();
