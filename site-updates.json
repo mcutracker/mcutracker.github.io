@@ -1,6 +1,19 @@
 {
-  "updated": "2026-08-25",
+  "updated": "2026-08-31",
   "entries": [
+    {
+      "date": "2026-08-31",
+      "title": "Büyüme Merkezi ve Stabilizasyon",
+      "items": [
+        "Admin Merkezi'ne gerçek kullanıcı, aktivasyon oranı, 10+ içerik tamamlayan kullanıcı, son 7 günlük giriş ve ilerleme gibi toplu büyüme metriklerini gösteren Büyüme Merkezi eklendi.",
+        "İlk 50 ve 100 gerçek kullanıcı hedefleri Admin Merkezi'nde ilerleme çubuklarıyla takip edilir hale getirildi.",
+        "Demo hesabı ve Ana Admin, gerçek kullanıcı büyüme metriklerinden hariç tutuluyor; kişisel kullanıcı verileri yerine toplu sayılar gösteriliyor.",
+        "Uygulama açılışı telemetrisinde v1.6.17 olarak kalan temel sürüm etiketi sunucu tarafında v1.6.18 olarak normalize edildi.",
+        "Admin kupa ekranındaki 'Kupayı Test Et' düğmesi arayüzden kaldırıldı.",
+        "İlk 50 kullanıcı için stabilizasyon, aktivasyon, kullanıcı kazanımı ve geri dönüş odaklı büyüme planı proje dokümantasyonuna eklendi.",
+        "Değişiklikler v1.6.18 sürüm numarası değiştirilmeden web ve Windows ortak yapısına uygulandı."
+      ]
+    },
     {
       "date": "2026-08-25",
       "title": "Doomsday Hızlı Hazırlık Listesi",
