@@ -10,6 +10,7 @@
         "Demo hesabı ve Ana Admin, gerçek kullanıcı büyüme metriklerinden hariç tutuluyor; kişisel kullanıcı verileri yerine toplu sayılar gösteriliyor.",
         "Admin Merkezi bulut hesap sistemi tarafından yeniden çizildiğinde Büyüme Merkezi'nin görünmemesine neden olan yükleme sırası sorunu giderildi; kart artık Admin Merkezi yeniden çizildikten sonra otomatik olarak tekrar ekleniyor.",
         "Büyüme Merkezi modülü ana uygulamada ayrıca güvenli bir yükleyici üzerinden çağrılıyor ve önbelleğe takılmaması için dinamik olarak yenileniyor.",
+        "Admin Merkezi'ndeki gereksiz 'Tek Hesap Sistemi' bilgi kartı kaldırıldı; hesapların Web + Windows ortak yapısı çalışmaya devam ediyor.",
         "Uygulama açılışı telemetrisinde v1.6.17 olarak kalan temel sürüm etiketi sunucu tarafında v1.6.18 olarak normalize edildi.",
         "Admin kupa ekranındaki 'Kupayı Test Et' düğmesi arayüzden kaldırıldı.",
         "İlk 50 kullanıcı için stabilizasyon, aktivasyon, kullanıcı kazanımı ve geri dönüş odaklı büyüme planı proje dokümantasyonuna eklendi.",
