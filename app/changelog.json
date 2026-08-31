@@ -3,6 +3,20 @@
   "entries": [
     {
       "version": "1.6.18",
+      "date": "2026-08-31",
+      "title": "Büyüme Merkezi ve Stabilizasyon",
+      "items": [
+        "Admin Merkezi'ne gerçek kullanıcı, aktivasyon oranı, 10+ içerik tamamlayan kullanıcı, son 7 günlük giriş ve ilerleme gibi toplu büyüme metriklerini gösteren Büyüme Merkezi eklendi.",
+        "50 ve 100 gerçek kullanıcı hedefleri için ilerleme göstergeleri eklendi.",
+        "Büyüme metriklerinde demo hesabı ve Ana Admin hariç tutulur; kişisel kullanıcı verileri yerine toplu istatistikler kullanılır.",
+        "Uygulama açılışı telemetrisindeki eski v1.6.17 etiketi v1.6.18 olarak normalize edildi.",
+        "Admin kupa ekranındaki Kupayı Test Et düğmesi kaldırıldı.",
+        "İlk 50 gerçek kullanıcı için stabilizasyon, aktivasyon, kullanıcı kazanımı ve geri dönüş planı oluşturuldu.",
+        "Sürüm numarası değiştirilmeden v1.6.18 bakım/geliştirme hattında yayınlandı."
+      ]
+    },
+    {
+      "version": "1.6.18",
       "date": "2026-08-21",
       "title": "Plan 1 — Dashboard Geliştirmesi",
       "items": [
