@@ -116,10 +116,23 @@
     }catch{}
   }
 
+  function ensureAdminCleanup(){
+    try{
+      if(window.__MCU_ADMIN_PANEL_CLEANUP_1618__||document.getElementById('mcuAdminPanelCleanupDirect1618'))return;
+      const s=document.createElement('script');
+      s.id='mcuAdminPanelCleanupDirect1618';
+      s.src='https://mcutracker.github.io/app/admin-panel-cleanup-1.6.18.js?t='+Date.now();
+      s.async=false;
+      s.onerror=()=>s.remove();
+      document.head.appendChild(s);
+    }catch{}
+  }
+
   function install(){
     ensureStyle();
     wrapOpenDetail();
     ensureGrowthModule();
+    ensureAdminCleanup();
     document.addEventListener('click',e=>{
       if(e.target?.closest?.('.detail-btn'))setTimeout(enhanceRating,0);
     },true);
