@@ -1,6 +1,20 @@
 {
-  "latest": "1.6.18",
+  "latest": "1.6.19",
   "entries": [
+    {
+      "version": "1.6.19",
+      "date": "2026-08-31",
+      "title": "Yeni Kullanıcı Başlangıç Rehberi",
+      "items": [
+        "Yeni hesaplar için ilk kullanımda tek sefer açılan adım adım Başlangıç Rehberi eklendi.",
+        "Rehber; Doomsday ekranındaki izleme listesini seçmeyi, izlenen film ve sezonları işaretlemeyi ve ilerlemenin hesaba kaydedilmesini açıklar.",
+        "Web ve Windows arasındaki ortak ilerleme senkronizasyonu yeni kullanıcıya rehber içinde anlatılır.",
+        "XP, seviye, kupalar, Infinity Stones ve Dashboard mantığı kısa adımlarla tanıtılır.",
+        "Rehber yalnızca hiç içerik işaretlememiş yeni hesaplarda otomatik gösterilir ve tamamlandıktan veya atlandıktan sonra tekrar açılmaz.",
+        "Kullanıcı isterse Ayarlar bölümündeki Başlangıç Rehberi kartından rehberi yeniden açabilir.",
+        "Başlangıç Rehberi Admin Merkezi üzerinde açılmaz ve yönetim ekranının çalışma düzenini etkilemez."
+      ]
+    },
     {
       "version": "1.6.18",
       "date": "2026-08-31",
