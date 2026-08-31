@@ -12,6 +12,11 @@ const pct=v=>Math.max(0,Math.min(100,Number(v||0)));
 function isAdminCenter(){
   return (document.getElementById('subtitle')?.textContent||'').trim().toLocaleUpperCase('tr-TR')==='ADMIN MERKEZİ'&&!!document.getElementById('movieList');
 }
+function growthCardExists(){
+  const host=document.getElementById('movieList');
+  const card=document.getElementById('mcuGrowthStats1618');
+  return !!(host&&card&&card.parentNode===host);
+}
 async function fetchGrowth(){
   const token=localStorage.getItem(TOKEN_KEY)||'';
   if(!token)return{ok:false,error:'invalid_session'};
@@ -47,6 +52,7 @@ function ensureCard(){
 }
 async function inject(force=false){
   if(!isAdminCenter())return;
+  if(growthCardExists()&&!force)return;
   const now=Date.now();if(loading||(!force&&now-lastLoad<4000))return;loading=true;lastLoad=now;
   try{
     style();let card=ensureCard();if(!card)return;
@@ -62,17 +68,20 @@ function schedule(force=false,delay=120){
   clearTimeout(scheduleTimer);
   scheduleTimer=setTimeout(()=>inject(force),delay);
 }
+function restoreOnlyIfMissing(){
+  if(isAdminCenter()&&!growthCardExists())schedule(true,120);
+}
 function observeAdminRenders(){
   const target=document.body||document.documentElement;if(!target)return;
-  const observer=new MutationObserver(()=>{if(isAdminCenter())schedule(false,120)});
-  observer.observe(target,{childList:true,subtree:true,characterData:true});
+  const observer=new MutationObserver(()=>restoreOnlyIfMissing());
+  observer.observe(target,{childList:true,subtree:true});
 }
 
-// Boş alan veya sıradan tıklamalar Büyüme Merkezi'ni yeniden yüklemez.
-// Kart yalnızca Admin Merkezi gerçekten yeniden çizildiğinde MutationObserver ile geri eklenir.
-window.addEventListener('focus',()=>schedule(false,0),{passive:true});
+// Boş alan veya sıradan tıklamalar hiçbir şekilde Büyüme Merkezi'ni yenilemez.
+// MutationObserver yalnızca kart gerçekten DOM'dan silinmişse kartı geri oluşturur.
+window.addEventListener('focus',restoreOnlyIfMissing,{passive:true});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{observeAdminRenders();schedule(true,300)},{once:true});
 else{observeAdminRenders();schedule(true,300)}
-setTimeout(()=>schedule(false,0),1200);
-setTimeout(()=>schedule(false,0),2600);
+setTimeout(restoreOnlyIfMissing,1200);
+setTimeout(restoreOnlyIfMissing,2600);
 })();
