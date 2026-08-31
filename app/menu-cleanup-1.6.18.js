@@ -10,6 +10,10 @@
       REMOVED.forEach(cat=>{
         document.querySelectorAll(`.menu-category[data-cat="${cat}"]`).forEach(el=>el.remove());
       });
+      document.getElementById('testTrophyBtn')?.remove();
+      document.querySelectorAll('button').forEach(btn=>{
+        if((btn.textContent||'').includes('Kupayı Test Et'))btn.remove();
+      });
     }catch{}
   }
 
