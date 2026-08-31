@@ -104,9 +104,22 @@
     }catch{}
   }
 
+  function ensureGrowthModule(){
+    try{
+      if(window.__MCU_ADMIN_GROWTH_STATS_1618__||document.getElementById('mcuAdminGrowthDirect1618'))return;
+      const s=document.createElement('script');
+      s.id='mcuAdminGrowthDirect1618';
+      s.src='https://mcutracker.github.io/app/admin-growth-stats-1.6.18.js?t='+Date.now();
+      s.async=false;
+      s.onerror=()=>s.remove();
+      document.head.appendChild(s);
+    }catch{}
+  }
+
   function install(){
     ensureStyle();
     wrapOpenDetail();
+    ensureGrowthModule();
     document.addEventListener('click',e=>{
       if(e.target?.closest?.('.detail-btn'))setTimeout(enhanceRating,0);
     },true);
