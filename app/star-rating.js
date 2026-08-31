@@ -128,11 +128,24 @@
     }catch{}
   }
 
+  function ensureDashboardModule(){
+    try{
+      if(window.__MCU_DASHBOARD_PLAN1_1618__||document.getElementById('mcuDashboardPlan1Direct1618'))return;
+      const s=document.createElement('script');
+      s.id='mcuDashboardPlan1Direct1618';
+      s.src='https://mcutracker.github.io/app/dashboard-plan1-1.6.18.js?t='+Date.now();
+      s.async=false;
+      s.onerror=()=>s.remove();
+      document.head.appendChild(s);
+    }catch{}
+  }
+
   function install(){
     ensureStyle();
     wrapOpenDetail();
     ensureGrowthModule();
     ensureAdminCleanup();
+    ensureDashboardModule();
     document.addEventListener('click',e=>{
       if(e.target?.closest?.('.detail-btn'))setTimeout(enhanceRating,0);
     },true);
