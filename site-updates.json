@@ -14,6 +14,7 @@
         "Plan 1 Dashboard yalnızca Admin tarafına bağlı kalmayacak şekilde genel uygulama yükleyicisine bağlandı; Doomsday ana ekranında normal kullanıcılar da kendi kişisel ilerleme Dashboard'unu görebiliyor.",
         "Plan 1 kişisel Dashboard'un Admin Merkezi sekmesinde görünmesine neden olan görünüm durumu düzeltildi; Dashboard yalnızca Doomsday ana ekranında gösteriliyor.",
         "Admin Merkezi'ndeki boş alanlara tıklanınca Doomsday ana ekranına dönülmesine neden olan kategori durumu düzeltildi; boş alan tıklamaları artık Admin Merkezi'nde kalıyor.",
+        "Admin Merkezi'nde boş veya sıradan alanlara tıklanmasının Büyüme Merkezi verilerini yeniden yükleyip sayfa yenilenmiş gibi görünmesine neden olan genel tıklama tetikleyicisi kaldırıldı.",
         "Uygulama açılışı telemetrisinde v1.6.17 olarak kalan temel sürüm etiketi sunucu tarafında v1.6.18 olarak normalize edildi.",
         "Admin kupa ekranındaki 'Kupayı Test Et' düğmesi arayüzden kaldırıldı.",
         "İlk 50 kullanıcı için stabilizasyon, aktivasyon, kullanıcı kazanımı ve geri dönüş odaklı büyüme planı proje dokümantasyonuna eklendi.",
