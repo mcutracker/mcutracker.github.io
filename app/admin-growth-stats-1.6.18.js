@@ -68,10 +68,11 @@ function observeAdminRenders(){
   observer.observe(target,{childList:true,subtree:true,characterData:true});
 }
 
-document.addEventListener('click',()=>{setTimeout(()=>{if(isAdminCenter())schedule(true,0)},80)},true);
-window.addEventListener('focus',()=>schedule(true,0),{passive:true});
+// Boş alan veya sıradan tıklamalar Büyüme Merkezi'ni yeniden yüklemez.
+// Kart yalnızca Admin Merkezi gerçekten yeniden çizildiğinde MutationObserver ile geri eklenir.
+window.addEventListener('focus',()=>schedule(false,0),{passive:true});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{observeAdminRenders();schedule(true,300)},{once:true});
 else{observeAdminRenders();schedule(true,300)}
-setTimeout(()=>schedule(true,0),1200);
-setTimeout(()=>schedule(true,0),2600);
+setTimeout(()=>schedule(false,0),1200);
+setTimeout(()=>schedule(false,0),2600);
 })();
