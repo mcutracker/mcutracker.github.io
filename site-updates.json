@@ -1,6 +1,18 @@
 {
-  "updated": "2026-08-31",
+  "updated": "2026-09-02",
   "entries": [
+    {
+      "date": "2026-09-02",
+      "title": "v1.6.19 Dashboard Kontrolleri",
+      "items": [
+        "Dashboard Ayarlar bölümünden tamamen açılıp kapatılabilir hale getirildi.",
+        "Dashboard açıkken başlığın sağındaki küçük okla içerik daraltılabilir ve yeniden genişletilebilir.",
+        "Daraltılmış görünümde yalnızca kompakt Dashboard başlığı ve açma oku gösterilir.",
+        "Dashboard görünürlük ve daraltma tercihleri kullanıcı durumuyla birlikte kaydedilir ve ortak hesap senkronizasyonuyla korunur.",
+        "Dashboard varsayılan olarak açık ve genişletilmiş gelir.",
+        "Güncelleme v1.6.19 sürüm numarası değiştirilmeden web ve Windows ortak arayüzüne uygulandı."
+      ]
+    },
     {
       "date": "2026-08-31",
       "title": "v1.6.19 Arayüz Bakımı",
