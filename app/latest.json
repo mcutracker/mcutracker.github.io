@@ -2,5 +2,5 @@
   "version": "1.6.19",
   "url": "https://raw.githubusercontent.com/mcutracker/mcutracker.github.io/main/app/index.html",
   "sha256": "f9723819a2fd269f91c9191ca189c6fa7ef15021f6acdae92d9e6c017131a40d",
-  "notes": "Yeni kullanıcılar için tek seferlik Başlangıç Rehberi eklendi. Rehber; liste seçimi, izlenen içerikleri işaretleme, senkronizasyon, XP, kupalar, Infinity Stones ve Dashboard kullanımını adım adım anlatır. Ayarlar bölümünden tekrar açılabilir."
+  "notes": "Yeni kullanıcılar için tek seferlik Başlangıç Rehberi eklendi. Dashboard artık Ayarlar bölümünden tamamen açılıp kapatılabilir; açıkken ana ekrandaki küçük ok düğmesiyle daraltılıp yeniden genişletilebilir. Dashboard görünürlük ve daraltma tercihleri kullanıcı durumuyla birlikte kaydedilir."
 }
