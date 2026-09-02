@@ -3,6 +3,19 @@
   "entries": [
     {
       "version": "1.6.19",
+      "date": "2026-09-02",
+      "title": "Dashboard Görünüm Kontrolleri",
+      "items": [
+        "Dashboard artık Ayarlar bölümündeki Dashboard kartından tamamen açılıp kapatılabilir.",
+        "Dashboard açıkken başlığın sağındaki küçük ok düğmesiyle içerik daraltılabilir ve tekrar genişletilebilir.",
+        "Daraltılmış görünümde yalnızca kompakt Dashboard başlığı ve yeniden açma oku gösterilir.",
+        "Dashboard görünürlük ve daraltma tercihleri kullanıcı durumuyla birlikte kaydedilir; ortak hesap senkronizasyonu üzerinden diğer platformlarda da korunur.",
+        "Dashboard varsayılan olarak açık ve genişletilmiş gelir; kullanıcı isterse kendi tercihine göre değiştirebilir.",
+        "Değişiklik v1.6.19 sürüm numarası değiştirilmeden web ve Windows ortak arayüzüne uygulandı."
+      ]
+    },
+    {
+      "version": "1.6.19",
       "date": "2026-08-31",
       "title": "Yeni Kullanıcı Başlangıç Rehberi",
       "items": [
