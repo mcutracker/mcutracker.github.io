@@ -1,6 +1,18 @@
 {
-  "latest": "1.6.19",
+  "latest": "1.6.20",
   "entries": [
+    {
+      "version": "1.6.20",
+      "date": "2026-09-11",
+      "title": "Yeni Başlayan Görevleri",
+      "items": [
+        "Doomsday ana ekranına yeni kullanıcıyı ilk dakikalarda yönlendiren Yeni Başlayan Görevleri eklendi.",
+        "Görevler; ilk içeriği tamamlamak, ilk favoriyi eklemek, ilk kişisel puanı vermek ve ilk kupayı kazanmak adımlarından oluşur.",
+        "Tamamlanma şartı sağlanan görevlerde +25 XP ödülü kullanıcı tarafından alınabilir; dört görev toplam +100 bonus XP verir.",
+        "Görev ilerlemesi ve alınan bonus XP kullanıcı durumuyla birlikte kaydedilir ve Web + Windows ortak hesap senkronizasyonunda korunur.",
+        "Tüm başlangıç görevleri tamamlandığında kart başarı durumuna geçer ve kullanıcının başlangıç yolculuğunu tamamladığını gösterir."
+      ]
+    },
     {
       "version": "1.6.19",
       "date": "2026-09-02",
@@ -117,56 +129,6 @@
         "Güncelleme Notları sekmesi eklendi.",
         "Yeni bir sürüm geldiğinde Güncelleme Notları sekmesi o sürüm için bir kez otomatik açılır.",
         "Eski tek seferlik yayın dosyaları ve bakım kalıntıları temizlendi."
-      ]
-    },
-    {
-      "version": "1.6.13",
-      "date": "2026-08-12",
-      "title": "Admin Paneli Düzeltmesi",
-      "items": [
-        "Nick ile Hesap Sil alanını iki kez oluşturan eski admin-nick-split modülü kaldırıldı.",
-        "Admin Paneli'nde tek Nick ile Hesap Sil kutusu bırakıldı."
-      ]
-    },
-    {
-      "version": "1.6.12",
-      "date": "2026-08-12",
-      "title": "Hesap Silme Arayüzü",
-      "items": [
-        "Ana Admin için hesap silme arayüzü tekilleştirildi.",
-        "Hesap satırlarındaki tekrarlı silme kontrolleri kaldırıldı."
-      ]
-    },
-    {
-      "version": "1.6.10",
-      "date": "2026-08-12",
-      "title": "Nick Yönetimi",
-      "items": [
-        "Nick ile Admin Yap ve Nick ile Hesap Sil araçları birbirinden ayrıldı."
-      ]
-    },
-    {
-      "version": "1.6.8",
-      "date": "2026-08-12",
-      "title": "Hesap Yönetimi",
-      "items": [
-        "Ana Admin'in kayıtlı hesapları silmesi için hesap silme yönetimi geliştirildi."
-      ]
-    },
-    {
-      "version": "1.6.6",
-      "date": "2026-08-12",
-      "title": "Nick ile Admin",
-      "items": [
-        "Ana Admin'in kullanıcı nicki yazarak hesabı Admin yapması eklendi."
-      ]
-    },
-    {
-      "version": "1.6.5",
-      "date": "2026-08-12",
-      "title": "Performans Düzeltmesi",
-      "items": [
-        "Admin kurtarma kodundaki sürekli DOM izleme ve kısa aralıklı polling kaldırılarak donma sorunu giderildi."
       ]
     }
   ]
