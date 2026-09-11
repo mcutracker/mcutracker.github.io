@@ -1,6 +1,6 @@
 {
-  "version": "1.6.19",
+  "version": "1.6.20",
   "url": "https://raw.githubusercontent.com/mcutracker/mcutracker.github.io/main/app/index.html",
   "sha256": "f9723819a2fd269f91c9191ca189c6fa7ef15021f6acdae92d9e6c017131a40d",
-  "notes": "Yeni kullanıcılar için tek seferlik Başlangıç Rehberi eklendi. Dashboard artık Ayarlar bölümünden tamamen açılıp kapatılabilir; açıkken ana ekrandaki küçük ok düğmesiyle daraltılıp yeniden genişletilebilir. Dashboard görünürlük ve daraltma tercihleri kullanıcı durumuyla birlikte kaydedilir."
+  "notes": "Yeni Başlayan Görevleri eklendi. Kullanıcı ilk içeriğini tamamlayarak, ilk favorisini ekleyerek, ilk kişisel puanını vererek ve ilk kupasını kazanarak görevleri tamamlar. Her görev +25 bonus XP verir; toplam 100 bonus XP kullanıcı durumuyla birlikte kaydedilir ve Web + Windows arasında senkronize olur."
 }
